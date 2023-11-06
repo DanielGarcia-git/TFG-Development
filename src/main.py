@@ -1,12 +1,15 @@
+from main.command.CommandProcessorClass import CommandProcessor
+
 import sys
-from script.compiler.CompilerClass import Compiler
 
 
 def main():
     """_summary_
     """
 
-    pass
+    cmdProcesor = CommandProcessor()
+    cmdProcesor.processArgumentList(sys.argv[1:])
+    cmdProcesor.executeTasksReletedWithArgs()
 
 if __name__ == '__main__':
     sys.path.append("C:/Users/dani_/Documents/MEGAsync/UPC/Q9/TFG/Development/TFG-Development/src")

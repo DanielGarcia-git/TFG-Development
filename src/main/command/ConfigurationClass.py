@@ -15,7 +15,7 @@ class Configuration:
         """
 
         if not self.__instance:
-            self.__defaultConfiguration()
+            self.__defaultConfiguration(self)
             self.__instance = super(Configuration, self).__new__(self)
         return self.__instance
     
@@ -23,7 +23,26 @@ class Configuration:
         """_summary_
         """
 
-        pass
+        self.__configurationArgs[Arguments.HELP] = True
+        self.__configurationArgs[Arguments.VERSION] = False
+        self.__configurationArgs[Arguments.REPOSITORY_SETUP] = False
+
+    def isArgAvailable(self, arg: str) -> Arguments:
+        """_summary_
+
+        Args:
+            arg (Arguments): _description_
+
+        Returns:
+            bool: _description_
+        """
+
+        for availableArg in self.__configurationArgs:
+            if arg == availableArg.getArgShort() or arg == availableArg.getArgLarge():
+                return availableArg
+            
+        return None
+
 
     def enableArg(self, arg: Arguments) -> None:
         """_summary_
@@ -31,7 +50,10 @@ class Configuration:
         Args:
             arg (Arguments): _description_
         """
-
+        
+        if arg != Arguments.HELP:
+            self.__configurationArgs[Arguments.HELP] = False
+        
         self.__configurationArgs[arg] = True
 
     def disableArg(self, arg: Arguments) -> None:
@@ -42,3 +64,15 @@ class Configuration:
         """
 
         self.__configurationArgs[arg] = False
+    
+    def getArg(self, arg: Arguments) -> bool:
+        """_summary_
+
+        Args:
+            arg (Arguments): _description_
+
+        Returns:
+            bool: _description_
+        """
+
+        return self.__configurationArgs[arg]
