@@ -3,6 +3,7 @@ from utils.enum.ArgumentsEnum import Arguments
 
 from main.tasks.Help import HelpTask
 from main.tasks.Version import VersionTask
+from main.tasks.RepositorySetup import RepositorySetupTask
 
 import sys
 
@@ -49,12 +50,14 @@ class CommandProcessor:
         if config.getArg(Arguments.HELP):
             helpTask = HelpTask()
             helpTask.run()
+            return
         if config.getArg(Arguments.VERSION):
             verionTask = VersionTask()
             verionTask.run()
+            return
         if config.getArg(Arguments.REPOSITORY_SETUP):
-            print("Configuración de repositorios")
-
+            repositorySetupTask = RepositorySetupTask()
+            repositorySetupTask.run()
 
         
         
