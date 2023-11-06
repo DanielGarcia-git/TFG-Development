@@ -9,7 +9,8 @@ class HelpTask(DefaultTask):
     def __printHelpMessage(self) -> None:
         """_summary_
         """
-        print("Uso: python3 main.py [opciones]")
+        
+        print("Uso: python main.py [opciones]")
         print("Opciones disponibles:")
         for arg in Arguments:
             print("     " + str(arg))

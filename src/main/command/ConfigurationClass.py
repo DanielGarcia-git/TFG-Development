@@ -6,6 +6,7 @@ class Configuration:
 
     __instance = None
     __configurationArgs = {args: False for args in Arguments}
+    __version = "0.0.1"
 
     def __new__(self):
         """_summary_
@@ -76,3 +77,12 @@ class Configuration:
         """
 
         return self.__configurationArgs[arg]
+    
+    def getVersion(self) -> str:
+        """_summary_
+
+        Returns:
+            str: _description_
+        """
+
+        return self.__version
