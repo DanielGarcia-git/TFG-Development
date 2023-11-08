@@ -5,6 +5,7 @@ from main.tasks.Help import HelpTask
 from main.tasks.Version import VersionTask
 from main.tasks.RepositorySetup import RepositorySetupTask
 from main.tasks.Compiler import CompilerTask
+from main.tasks.DataSet import DataSetTask
 
 import sys
 
@@ -56,6 +57,8 @@ class CommandProcessor:
             self.__tasksArray.append(RepositorySetupTask())
         elif arg == Arguments.COMPILER_SETUP:
             self.__tasksArray.append(CompilerTask())
+        elif arg == Arguments.DATASET_SETUP:
+            self.__tasksArray.append(DataSetTask())
         
     def getListOfTasks(self) -> list:
         """_summary_
