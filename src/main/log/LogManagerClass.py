@@ -18,9 +18,10 @@ class LogManager:
         """
 
         if not self.__instance:
+            self.__instance = super(LogManager, self).__new__(self)
             self.logger = logging.getLogger(__name__)
             self.logger.setLevel(logging.DEBUG)
-            formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+            formatter = logging.Formatter('%(asctime)s - %(levelname)s - %(message)s')
             ch = logging.StreamHandler()
             ch.setLevel(logging.DEBUG)
             ch.setFormatter(formatter)
@@ -32,7 +33,6 @@ class LogManager:
             fh.setLevel(logging.DEBUG)
             fh.setFormatter(formatter)
             self.logger.addHandler(fh)
-            self.__instance = super(LogManager, self).__new__(self)
         return self.__instance
     
     def __createLogDir(self) -> None:

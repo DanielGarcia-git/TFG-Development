@@ -9,14 +9,22 @@ class Compiler:
     """_summary_
     """
 
-    def __init__(self) -> None:
+    __instance = None
+
+    def __new__(self):
         """_summary_
+
+        Returns:
+            CommandProcessor: _description_
         """
 
-        self.__compilerOptions = None
-        self.__operatingSystem = OperatingSystem.NONE
-        self.__codeFiles = []
-        self.__compilerExec = Compilers.NONE
+        if not self.__instance:
+            self.__instance = super(Compiler, self).__new__(self)
+            self.__compilerOptions = None
+            self.__setOperatingSystem(self)
+            self.__setPathToCompiler(self)
+            self.__codeFiles = []
+        return self.__instance
 
     def __setPathToCompiler(self) -> None:
         """_summary_
@@ -66,6 +74,15 @@ class Compiler:
         """
 
         return self.__compilerOptions
+    
+    def setCodeFiles(self, codeFiles: list[CodeFile]) -> None:
+        """_summary_
+
+        Args:
+            codeFiles (list[CodeFile]): _description_
+        """
+
+        self.__codeFiles = codeFiles
     
     def compilerExec(self) -> None:
         """_summary_
