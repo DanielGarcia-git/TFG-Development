@@ -4,6 +4,7 @@ from utils.enum.ArgumentsEnum import Arguments
 from main.tasks.Help import HelpTask
 from main.tasks.Version import VersionTask
 from main.tasks.RepositorySetup import RepositorySetupTask
+from main.tasks.Compiler import CompilerTask
 
 import sys
 
@@ -53,6 +54,8 @@ class CommandProcessor:
             self.__tasksArray.append(VersionTask())
         elif arg == Arguments.REPOSITORY_SETUP:
             self.__tasksArray.append(RepositorySetupTask())
+        elif arg == Arguments.COMPILER_SETUP:
+            self.__tasksArray.append(CompilerTask())
         
     def getListOfTasks(self) -> list:
         """_summary_

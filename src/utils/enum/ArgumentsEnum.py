@@ -5,6 +5,7 @@ class Arguments(Enum):
     """
 
     REPOSITORY_SETUP = ("-r", "--repository-setup", "Descarga los repositorios especificados en el fichero de repositorios.txt")
+    COMPILER_SETUP = ("-c", "--compiler-setup", "Compila todos los archivos .c que se encuentren en el directorio de repositorios")
     VERSION = ("-v", "--version", "Muestra la versión del programa")
     HELP = ("-h", "--help", "Muestra este mensaje de ayuda")
 
