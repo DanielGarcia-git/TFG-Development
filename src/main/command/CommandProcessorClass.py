@@ -63,8 +63,13 @@ class CommandProcessor:
         Returns:
             list: _description_
         """
+
+        listOfTasks = []
+
+        for task in self.__tasksArray:
+            listOfTasks.append(task.__class__.__name__)
         
-        return self.__tasksArray
+        return listOfTasks
     
     def executeTasks(self) -> None:
         """_summary_
