@@ -8,11 +8,11 @@ def main():
     """_summary_
     """
     logManager = LogManager()
-    logManager.log("Starting program...")
+    logManager.log("Empezando el programa...")
     cmdProcesor = CommandProcessor()
-    logManager.log("Processing arguments...")
+    logManager.log("Procesando los argumentos: " + str(sys.argv[1:]))
     cmdProcesor.processArgumentList(sys.argv[1:])
-    logManager.log("Executing tasks..." + str(cmdProcesor.getListOfTasks()))
+    logManager.log("Tareas definidas: " + str(cmdProcesor.getListOfTasks()))
     cmdProcesor.executeTasks()
 
 if __name__ == '__main__':

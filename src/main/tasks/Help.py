@@ -3,7 +3,7 @@ from main.tasks.Default import DefaultTask
 
 class HelpTask(DefaultTask):
 
-    def run(self) -> None:
+    def defineTask(self) -> None:
         self.__printHelpMessage()
     
     def __printHelpMessage(self) -> None:

@@ -13,7 +13,6 @@ class CompilerTask(DefaultTask):
 
         super().__init__()
         self.__compiler = Compiler()
-        self.__logManager = LogManager()
         self.__codeFiles = []
 
     def getCodeFiles(self) -> None:
@@ -32,10 +31,10 @@ class CompilerTask(DefaultTask):
                     if file.endswith(".c"):
                         self.__codeFiles.append(os.path.join(root, file))
         else:
-            self.__logManager.logError("El directorio de repositorios está vacio o no existe")
+            self.logManager.logError("El directorio de repositorios está vacio o no existe")
             exit(1)
 
-    def run(self) -> None:
+    def defineTask(self) -> None:
         """_summary_
         """
 

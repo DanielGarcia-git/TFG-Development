@@ -3,7 +3,7 @@ from main.command.ConfigurationClass import Configuration
 
 class VersionTask(DefaultTask):
 
-    def run(self) -> None:
+    def defineTask(self) -> None:
         self.__printVersionMessage()
     
     def __printVersionMessage(self) -> None:
