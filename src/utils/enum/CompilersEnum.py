@@ -1,9 +1,9 @@
-from enum import Enum, auto
+from enum import Enum
 
 class Compilers(Enum):
     """_summary_
     """
     
-    VISUAL_STUDIO = auto()
-    GCC = auto()
-    NONE = auto()
+    VISUAL_STUDIO = "cl"
+    GCC = "gcc"
+    NONE = ""

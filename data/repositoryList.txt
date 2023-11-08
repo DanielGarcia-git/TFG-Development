@@ -1,2 +1,1 @@
 https://github.com/mauriciobrito7/Lenguaje-C.git
-https://github.com/TheAlgorithms/C.git
