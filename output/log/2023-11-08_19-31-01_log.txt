@@ -1,0 +1,6 @@
+2023-11-08 19:31:01,611 - main.log.LogManagerClass - INFO - Starting program...
+2023-11-08 19:31:01,612 - main.log.LogManagerClass - INFO - Processing arguments...
+2023-11-08 19:31:01,612 - main.log.LogManagerClass - INFO - Executing tasks...[<main.tasks.RepositorySetup.RepositorySetupTask object at 0x000001278C42B510>]
+2023-11-08 19:31:01,613 - main.log.LogManagerClass - INFO - Seting up repositories by file set in C:\Users\dani_\Documents\MEGAsync\UPC\Q9\TFG\Development\TFG-Development\data\repositoryList.txt
+2023-11-08 19:31:01,614 - main.log.LogManagerClass - INFO - Repositorio Lenguaje-C ya existe en C:\Users\dani_\Documents\MEGAsync\UPC\Q9\TFG\Development\TFG-Development\output\localRepositories\Lenguaje-C
+2023-11-08 19:31:01,619 - main.log.LogManagerClass - INFO - Repositorio C ya existe en C:\Users\dani_\Documents\MEGAsync\UPC\Q9\TFG\Development\TFG-Development\output\localRepositories\C

@@ -1,4 +1,8 @@
 from git import Repo
+from utils.enum.PathsEnum import Paths
+from main.log.LogManagerClass import LogManager
+import shutil
+from shutil import rmtree
 
 class Repository:
     """_summary_
@@ -11,19 +15,21 @@ class Repository:
             url (str): _description_
         """
 
-        self.__url = url
-        self.__repo = Repo()
-        self.__nameRepo = ""
-        self.__pathToLocalRepository = ""
+        self.__logManager = LogManager()
+        self.__nameRepo = url.split("/")[-1].replace(".git", "")
+        self.__pathToLocalRepository = str(Paths.ROOT_PATH_LOCAL_REPOSITORIES.value) + self.__nameRepo
+        if not shutil.os.path.exists(self.__pathToLocalRepository):
+            self.__logManager.log("Clonando repositorio " + self.__nameRepo + " en " + self.__pathToLocalRepository)
+            self.__repo = Repo.clone_from(url, self.__pathToLocalRepository)
+        else:
+            self.__logManager.log("Repositorio " + self.__nameRepo + " ya existe en " + self.__pathToLocalRepository)
+            self.__repo = Repo(self.__pathToLocalRepository)
     
-    def __initialiceRepository(self) -> None:
+    def __str__(self) -> str:
         """_summary_
+
+        Returns:
+            str: _description_
         """
 
-        self.__repo = Repo.clone_from(self.__url, self.__pathToLocalRepository)
-
-    def __setRepoName(self) -> None:
-        """_summary_
-        """
-        
-        self.__nameRepo = self.__repo.remotes.origin.url.split('.git')[0].split('/')[-1]
+        return self.__nameRepo

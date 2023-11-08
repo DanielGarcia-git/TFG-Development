@@ -12,6 +12,7 @@ class CommandProcessor:
     """
 
     __instance = None
+    __tasksArray = []
 
     def __new__(self):
         """_summary_
@@ -37,27 +38,37 @@ class CommandProcessor:
             arg = config.isArgAvailable(argument)
             if arg is not None:
                 config.enableArg(arg)
+                self.__addTask(arg)
             else:
                 print(f"El argumento {argument} no se reconoce. Prueba con -h o --help para más información.")
                 sys.exit(1)    
     
-    def executeTasksReletedWithArgs(self) -> None:
+    def __addTask(self, arg: Arguments) -> None:
         """_summary_
         """
 
-        config = Configuration()
+        if arg == Arguments.HELP:
+            self.__tasksArray.append(HelpTask())
+        elif arg == Arguments.VERSION:
+            self.__tasksArray.append(VersionTask())
+        elif arg == Arguments.REPOSITORY_SETUP:
+            self.__tasksArray.append(RepositorySetupTask())
+        
+    def getListOfTasks(self) -> list:
+        """_summary_
 
-        if config.getArg(Arguments.HELP):
-            helpTask = HelpTask()
-            helpTask.run()
-            return
-        if config.getArg(Arguments.VERSION):
-            verionTask = VersionTask()
-            verionTask.run()
-            return
-        if config.getArg(Arguments.REPOSITORY_SETUP):
-            repositorySetupTask = RepositorySetupTask()
-            repositorySetupTask.run()
+        Returns:
+            list: _description_
+        """
+        
+        return self.__tasksArray
+    
+    def executeTasks(self) -> None:
+        """_summary_
+        """
+        
+        for task in self.__tasksArray:
+            task.run()
 
         
         
