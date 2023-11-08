@@ -74,31 +74,26 @@ class Compiler:
         else:
             return None
 
-    def __compile(self, fileToCompile: CodeFile) -> None:
+    def __compile(self, fileToCompile: CodeFile) -> bool:
         """_summary_
 
         Args:
             fileToCompile (CodeFile): _description_
         """
 
-        failCount = 0
-        count = 0
-        self.__logManager.log(f"Compilando {len(self.__codeFiles)} archivos")
-        for codeFile in self.__codeFiles:
-            count += 1
-            compile_command = self.__createCommand(codeFile)
-            self.__logManager.log(f"Compilando archivo {count} de {len(self.__codeFiles)}")
-            self.__logManager.log(f"Compilando {codeFile.getPathToFile()}")
-            self.__logManager.logDebug(f"Comando de compilación: {compile_command}")
-            result = subprocess.run(compile_command, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
-            
-            if result.returncode != 0:
-                self.__logManager.logError("El comando falló con el código de salida: " + str(result.returncode))
-                failCount += 1
-            else:
-                self.__logManager.log("El comando se ejecutó con éxito")
-            
-        self.__logManager.log(f"Se compiló {len(self.__codeFiles) - failCount} de {len(self.__codeFiles)} archivos")
+        
+        compile_command = self.__createCommand(fileToCompile)
+        self.__logManager.log(f"Compilando {fileToCompile.getPathToFile()}")
+        self.__logManager.logDebug(f"Comando de compilación: {compile_command}")
+        result = subprocess.run(compile_command, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
+        
+        if result.returncode != 0:
+            self.__logManager.logError("El comando falló con el código de salida: " + str(result.returncode))
+            return False
+        else:
+            self.__logManager.log("El comando se ejecutó con éxito")
+            return True
+        
     
     def getOperatingSystem(self) -> OperatingSystem:
         """_summary_
@@ -150,5 +145,14 @@ class Compiler:
             self.__logManager.logError("No se ha definido el compilador")
             exit(1)
         else:
+            failCount = 0
+            count = 0
+            self.__logManager.log(f"Compilando {len(self.__codeFiles)} archivos")
             for codeFile in self.__codeFiles:
-                self.__compile(codeFile)
+                count += 1
+                self.__logManager.log(f"Compilando archivo {count} de {len(self.__codeFiles)}")
+                if self.__compile(codeFile):
+                    failCount += 1
+
+            self.__logManager.log(f"Se compiló {len(self.__codeFiles) - failCount} de {len(self.__codeFiles)} archivos")
+            
