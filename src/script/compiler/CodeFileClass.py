@@ -1,5 +1,6 @@
 from io import TextIOWrapper
 import os
+import chardet
 from pathlib import Path
 
 class CodeFile:
@@ -28,7 +29,7 @@ class CodeFile:
         """
 
         self.__pathToFile = newPath
-        self.__codeFile = open(self.__pathToFile, 'r')
+        self.__codeFile = open(self.__pathToFile, encoding=None)
 
     def getPathToFile(self) -> str:
         """_summary_
@@ -55,4 +56,28 @@ class CodeFile:
             list[str]: _description_
         """
 
+        self.__codeFile = open(self.__pathToFile, encoding=None)
         return self.__codeFile.readlines()
+    
+    def __str__(self) -> str:
+        """_summary_
+
+        Returns:
+            str: _description_
+        """
+
+        with open(self.__pathToFile, 'rb') as file:
+            detector = chardet.universaldetector.UniversalDetector()
+            for line in file:
+                detector.feed(line)
+                if detector.done:
+                    break
+            detector.close()
+
+        encoding = detector.result['encoding']
+
+        with open(self.__pathToFile, 'r', encoding=encoding) as file:
+            content = ""
+            for line in file:
+                content += line
+        return content
