@@ -3,7 +3,7 @@ from main.tasks.Default import DefaultTask
 from script.compiler.CompilerClass import Compiler
 from utils.enum.PathsEnum import Paths
 from script.compiler.CompilerOptionsClass import CompilerOptions
-from script.compiler.CodeFileClass import CodeFile
+from utils.file.CodeFileClass import CodeFile
 import os
 
 class CompilerTask(DefaultTask):
@@ -46,6 +46,8 @@ class CompilerTask(DefaultTask):
             os.makedirs(str(Paths.PATH_TO_COMPILER_OBJ_OUTPUT.value))
         if not shutil.os.path.exists(str(Paths.PATH_TO_COMPILER_EXE_OUTPUT.value)):
             os.makedirs(str(Paths.PATH_TO_COMPILER_EXE_OUTPUT.value))
+        if not shutil.os.path.exists(str(Paths.PATH_TO_COMPILER_OBJDUMP_OUTPUT.value)):
+            os.makedirs(str(Paths.PATH_TO_COMPILER_OBJDUMP_OUTPUT.value))
 
     def defineTask(self) -> None:
         """_summary_

@@ -4,7 +4,7 @@ from main.tasks.Default import DefaultTask
 from script.dataset.DataSetClass import DataSet
 from script.dataset.DataFineTuningClass import DataFineTuning
 from utils.enum.PathsEnum import Paths
-from script.compiler.CodeFileClass import CodeFile
+from utils.file.CodeFileClass import CodeFile
 
 class DataSetTask(DefaultTask):
 

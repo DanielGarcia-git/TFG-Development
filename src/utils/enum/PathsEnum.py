@@ -12,4 +12,5 @@ class Paths(Enum):
     PATH_TO_COMPILER_EXE_OUTPUT = ROOT_PATH + "\\output\\compiler\\exe\\"
     PATH_TO_COMPILER_OBJ_OUTPUT = ROOT_PATH + "\\output\\compiler\\obj\\"
     PATH_TO_COMPILER_ASM_OUTPUT = ROOT_PATH + "\\output\\compiler\\asm\\"
+    PATH_TO_COMPILER_OBJDUMP_OUTPUT = ROOT_PATH + "\\output\\compiler\\objdump\\"
     PATH_TO_DATASET = ROOT_PATH + "\\output\\dataset\\"
