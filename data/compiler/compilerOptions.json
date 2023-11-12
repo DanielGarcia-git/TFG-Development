@@ -5,7 +5,8 @@
             "description": "Level 1",
             "oprions": {
                 "windows": [
-
+                    "/Od",
+                    "/Zi"
                 ]
             }
         }

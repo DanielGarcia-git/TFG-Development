@@ -1,4 +1,3 @@
-import json
 
 class CompilerOptions:
     """_summary_
@@ -33,3 +32,12 @@ class CompilerOptions:
             options += option + " "
 
         return options
+    
+    def setOptions(self, options: list[str]) -> None:
+        """_summary_
+
+        Args:
+            options (list[str]): _description_
+        """
+
+        self.__options = options
