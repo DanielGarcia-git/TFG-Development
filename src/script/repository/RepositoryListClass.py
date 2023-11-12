@@ -1,4 +1,5 @@
 from script.repository.RepositoryClass import Repository
+import json
 
 class RepositoryList:
     """_summary_
@@ -29,11 +30,19 @@ class RepositoryList:
         self.__pathToRepositoryFile = pathToFile
         self.__repositorySet.clear()
 
-        with open(self.__pathToRepositoryFile, "r") as file:
-            for line in file:
-                line = line.strip()
-                if line:
-                    self.__repositorySet.add(Repository(line))
+        jsonFile = open(pathToFile, "r")
+        jsonObject = json.load(jsonFile)
+
+        for repository in jsonObject["repositories"]:
+            self.__repositorySet.add(Repository(repository["name"], repository["url"], repository["type"]))
+
+        # Leer un archivo JSON
+        # https://www.w3schools.com/python/python_json.asp
+        # https://www.geeksforgeeks.org/read-json-file-using-python/
+        # https://www.programiz.com/python-programming/json
+        # https://www.geeksforgeeks.org/reading-writing-json-python/
+        # https://www.geeksforgeeks.org/how-to-convert-python-dictionary-to-json/
+
 
         
     def __str__(self) -> str:
