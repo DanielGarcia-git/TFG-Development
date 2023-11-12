@@ -6,6 +6,7 @@ from utils.enum.CompilersEnum import Compilers
 from utils.enum.OperatingSystemEnum import OperatingSystem
 from main.log.LogManagerClass import LogManager
 from utils.enum.PathsEnum import Paths
+from utils.file.FileClass import File
 
 import platform
 
@@ -146,14 +147,14 @@ class Compiler:
         else:
             failCount = 0
             count = 0
-            self.__logManager.log(f"Compilando {len(self.__codeFiles)} archivos")
-            for codeFile in self.__codeFiles:
-                count += 1
-                self.__logManager.log(f"Compilando archivo {count} de {len(self.__codeFiles)}")
-                if self.__compile(codeFile):
-                    failCount += 1
+            # self.__logManager.log(f"Compilando {len(self.__codeFiles)} archivos")
+            # for codeFile in self.__codeFiles:
+            #     count += 1
+            #     self.__logManager.log(f"Compilando archivo {count} de {len(self.__codeFiles)}")
+            #     if self.__compile(codeFile):
+            #         failCount += 1
 
-            self.__logManager.log(f"Se compiló {len(self.__codeFiles) - failCount} de {len(self.__codeFiles)} archivos")
+            # self.__logManager.log(f"Se compiló {len(self.__codeFiles) - failCount} de {len(self.__codeFiles)} archivos")
 
         exeFiles = []
 
@@ -165,14 +166,10 @@ class Compiler:
         
         # Generamos los archivos .objdump con formato de .txt
         self.__logManager.log("Generando archivos .objdump")
-        for exeFile in exeFiles:
-            self.__logManager.log(f"Generando archivo .objdump para {codeFile.getFileName()}")
-            objdump_command = f"objdump -d {os.path.join(Paths.PATH_TO_COMPILER_OBJ_OUTPUT.value, codeFile.getFileName())}.obj > {os.path.join(Paths.PATH_TO_COMPILER_OBJDUMP_OUTPUT.value, codeFile.getFileName())}.txt"
+        for exe in exeFiles:
+            exeFile = File(exe)
+            self.__logManager.log(f"Generando archivo .objdump para {exeFile.getFileName()}")
+            objdump_command = f"dumpbin /DISASM {os.path.join(Paths.PATH_TO_COMPILER_EXE_OUTPUT.value, exeFile.getFileName())}.exe {os.path.join(Paths.PATH_TO_COMPILER_OBJDUMP_OUTPUT.value, exeFile.getFileName())}.txt"
             self.__logManager.logDebug(f"Comando de objdump: {objdump_command}")
-            result = subprocess.run(objdump_command, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
-            if result.returncode != 0:
-                self.__logManager.logError("El comando falló con el código de salida: " + str(result.returncode))
-                exit(1)
-            else:
-                self.__logManager.log("El comando se ejecutó con éxito")
-            
+            with open(os.path.join(Paths.PATH_TO_COMPILER_OBJDUMP_OUTPUT.value, f"{exeFile.getFileName()}.txt"), "w") as f:
+                subprocess.run(objdump_command, stdout=f)

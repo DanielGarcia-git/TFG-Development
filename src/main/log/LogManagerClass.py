@@ -3,6 +3,8 @@ import logging
 import os
 import shutil
 from utils.enum.PathsEnum import Paths
+from main.command.ConfigurationClass import Configuration
+from utils.enum.ArgumentsEnum import Arguments
 
 class LogManager:
     """_summary_
@@ -19,6 +21,7 @@ class LogManager:
 
         if not self.__instance:
             self.__instance = super(LogManager, self).__new__(self)
+            self.__config = Configuration()
             self.logger = logging.getLogger(__name__)
             self.logger.setLevel(logging.DEBUG)
             formatter = logging.Formatter('%(asctime)s - %(levelname)s - %(message)s')
@@ -76,6 +79,7 @@ class LogManager:
             message (str): _description_
         """
 
-        self.logger.debug(message)
+        if self.__config.getArg(Arguments.DEBUG):
+            self.logger.debug(message)
     
 
