@@ -1,28 +1,35 @@
+import json
 
 class CompilerOptions:
     """_summary_
     """
 
-    def __init__(self) -> None:
+    def __init__(self, id: str, options: list[str]) -> None:
         """_summary_
         """
 
-        self.__optimisationLevel = 0
-
-    def setOptimisationLevel(self, newLevel: int) -> None:
-        """_summary_
-
-        Args:
-            newLevel (int): _description_
-        """
-
-        self.__optimisationLevel = newLevel
+        self.__id = id
+        self.__options = options
     
-    def getOptimisationLevel(self) -> int:
+    def getId(self) -> str:
         """_summary_
 
         Returns:
-            int: _description_
+            str: _description_
         """
 
-        return self.__optimisationLevel
+        return self.__id
+
+    def getOptions(self) -> str:
+        """_summary_
+
+        Returns:
+            str: _description_
+        """
+
+        options = ""
+
+        for option in self.__options:
+            options += option + " "
+
+        return options

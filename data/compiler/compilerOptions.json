@@ -1,0 +1,13 @@
+{
+    "compilerOptions": [
+        {
+            "id": "level_1",
+            "description": "Level 1",
+            "oprions": {
+                "windows": [
+
+                ]
+            }
+        }
+    ]
+}
