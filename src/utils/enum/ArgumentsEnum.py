@@ -5,8 +5,7 @@ class Arguments(Enum):
     """
 
     REPOSITORY_SETUP = ("-r", "--repository-setup", "Descarga los repositorios especificados en el fichero de repositorios.txt", False)
-    COMPILER_SETUP = ("-c", "--compiler-setup", "Compila todos los archivos .c que se encuentren en el directorio de repositorios", False)
-    LEVEL_SETUP = ("-l", "--level-setup", "Especifica el nivel de optimización del compilador", True)
+    COMPILER_SETUP = ("-c", "--compiler-setup", "Compila todos los archivos .c que se encuentren en el directorio de repositorios", True)
     DATASET_SETUP = ("-d", "--dataset-setup", "Genera el dataset a partir de los archivos .asm generados por el compilador", False)
     VERSION = ("-v", "--version", "Muestra la versión del programa", False)
     HELP = ("-h", "--help", "Muestra este mensaje de ayuda", False)
@@ -55,3 +54,12 @@ class Arguments(Enum):
         """
     
         return self.__arg_large
+    
+    def getHasArg(self) -> bool:
+        """_summary_
+
+        Returns:
+            bool: _description_
+        """
+
+        return self.__has_arg
