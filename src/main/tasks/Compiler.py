@@ -17,6 +17,18 @@ class CompilerTask(DefaultTask):
         self.__compilerOptions = CompilerOptions()
         self.__codeFiles = []
 
+    def __init__(self, arg_command=""):
+        """_summary_
+
+        Args:
+            arg_command (str): _description_
+        """
+
+        super().__init__(arg_command)
+        self.__compiler = Compiler()
+        self.__compilerOptions = CompilerOptions()
+        self.__codeFiles = []
+
     def getCodeFiles(self) -> None:
         """_summary_
 

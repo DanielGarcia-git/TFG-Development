@@ -38,13 +38,12 @@ class CommandProcessor:
         
         config = Configuration()
         processingCommandArg = False
+        arg = None
 
         self.__logManager.logDebug(f"Argumentos recibidos: {argumentList}")
 
         for argument in argumentList:
             
-            arg = None
-
             if processingCommandArg:
                 self.__logManager.logDebug(f"Procesando argumento de comando: {argument}")
                 processingCommandArg = False
@@ -63,6 +62,10 @@ class CommandProcessor:
                 
                 if not processingCommandArg:
                     self.__addTask(arg, "")
+        
+        # Si esta variable es cierta significa que no hemos recibido el argumento de comando que es necesario
+        if processingCommandArg:
+            self.__addTask(arg, "")
     
     def __addTask(self, arg: Arguments, arg_command: str) -> None:
         """_summary_
