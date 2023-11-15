@@ -26,8 +26,17 @@ class CompilerTask(DefaultTask):
 
         super().__init__(arg_command)
         self.__compiler = Compiler()
-        self.__compilerOptions = CompilerOptions()
+        self.__compilerOptions = self.getCompilerOptions()
         self.__codeFiles = []
+
+    def getCompilerOptions(self) -> CompilerOptions:
+        """_summary_
+
+        Returns:
+            CompilerOptions: _description_
+        """
+
+        print(self.arg_command)
 
     def getCodeFiles(self) -> None:
         """_summary_
@@ -38,9 +47,8 @@ class CompilerTask(DefaultTask):
         
         self.__codeFiles = []
 
-        if shutil.os.path.exists(str(Paths.ROOT_PATH_LOCAL_REPOSITORIES.value)) and os.listdir(str(Paths.ROOT_PATH_LOCAL_REPOSITORIES.value)):
-            # Recorrer directorio de repositorios y obtener los archivos de código en C
-            for root, dirs, files in os.walk(str(Paths.ROOT_PATH_LOCAL_REPOSITORIES.value)):
+        if shutil.os.path.exists(str(Paths.ROOT_PATH_LOCAL_CODE_REPOSITORIES.value)) and os.listdir(str(Paths.ROOT_PATH_LOCAL_CODE_REPOSITORIES.value)):
+            for root, dirs, files in os.walk(str(Paths.ROOT_PATH_LOCAL_CODE_REPOSITORIES.value)):
                 for file in files:
                     if file.endswith(".c"):
                         self.__codeFiles.append(CodeFile(str(os.path.join(root, file))))

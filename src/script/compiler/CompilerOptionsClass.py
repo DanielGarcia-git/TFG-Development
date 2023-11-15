@@ -3,8 +3,12 @@ class CompilerOptions:
     """_summary_
     """
 
-    def __init__(self, id: str, options: list[str]) -> None:
+    def __init__(self, id: str = "", options: list = []) -> None:
         """_summary_
+
+        Args:
+            id (str, optional): _description_. Defaults to "".
+            options (list, optional): _description_. Defaults to [].
         """
 
         self.__id = id

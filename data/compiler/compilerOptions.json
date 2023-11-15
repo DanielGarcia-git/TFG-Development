@@ -3,7 +3,7 @@
         {
             "id": "level_1",
             "description": "Level 1",
-            "oprions": {
+            "options": {
                 "windows": [
                     "/Od",
                     "/Zi"
