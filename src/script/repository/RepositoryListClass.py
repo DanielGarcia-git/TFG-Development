@@ -35,19 +35,3 @@ class RepositoryList:
 
         for repository in jsonObject["repositories"]:
             self.__repositorySet.add(Repository(repository["name"], repository["url"], repository["type"]))
-
-        # Leer un archivo JSON
-        # https://www.w3schools.com/python/python_json.asp
-        # https://www.geeksforgeeks.org/read-json-file-using-python/
-        # https://www.programiz.com/python-programming/json
-        # https://www.geeksforgeeks.org/reading-writing-json-python/
-        # https://www.geeksforgeeks.org/how-to-convert-python-dictionary-to-json/
-
-
-        
-    def __str__(self) -> str:
-        """_summary_
-
-        Returns:
-            str: _description_
-        """

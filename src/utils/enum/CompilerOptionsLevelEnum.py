@@ -1,9 +1,8 @@
-from enum import Enum, auto
-import os
+from enum import Enum
 
 class CompilerOptionsLevel(Enum):
     """_summary_
     """
 
-    NONE = auto()
-    LEVEL_1 = auto()
+    NONE = "None"
+    LEVEL_1 = "level_1"

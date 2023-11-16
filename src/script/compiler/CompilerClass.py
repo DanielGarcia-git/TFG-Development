@@ -1,14 +1,15 @@
 import json
 import os
-import subprocess
-from script.compiler.CompilerOptionsClass import CompilerOptions
-from script.compiler.CodeFileClass import CodeFile
-from utils.enum.CompilersEnum import Compilers
-from utils.enum.OperatingSystemEnum import OperatingSystem
-from main.log.LogManagerClass import LogManager
-from utils.enum.PathsEnum import Paths
-from utils.enum.CompilerOptionsLevelEnum import CompilerOptionsLevel
 import platform
+import subprocess
+
+from main.log.LogManagerClass import LogManager
+from script.compiler.CodeFileClass import CodeFile
+from script.compiler.CompilerOptionsClass import CompilerOptions
+from utils.enum.CompilersEnum import Compilers
+from utils.enum.CompilerOptionsLevelEnum import CompilerOptionsLevel
+from utils.enum.OperatingSystemEnum import OperatingSystem
+from utils.enum.PathsEnum import Paths
 
 class Compiler:
     """_summary_
@@ -26,7 +27,7 @@ class Compiler:
         if not self.__instance:
             self.__instance = super(Compiler, self).__new__(self)
             self.__logManager = LogManager()
-            self.__compilerOptions = [CompilerOptions]
+            self.__compilerOptions = []
             self.__compilerOptionLevel = CompilerOptionsLevel.NONE
             self.__actualCompilerOption = CompilerOptions()
             self.__codeFiles = []
@@ -86,7 +87,7 @@ class Compiler:
         option_fe = f"/Fe{os.path.join(Paths.PATH_TO_COMPILER_EXE_OUTPUT.value, codeFile.getFileName())}.exe"
         option_fa = f"/Fa{os.path.join(Paths.PATH_TO_COMPILER_ASM_OUTPUT.value, codeFile.getFileName())}.asm"
         option_fo = f"/Fo{os.path.join(Paths.PATH_TO_COMPILER_OBJ_OUTPUT.value, codeFile.getFileName())}.obj"
-
+        option_fd = f"/Fd{os.path.join(Paths.PATH_TO_COMPILER_PDB_OUTPUT.value, codeFile.getFileName())}.pdb"
         if self.__compilerOptionLevel == CompilerOptionsLevel.NONE:
             raise Exception("No se ha definido el nivel de opciones de compilación")
 
@@ -126,6 +127,15 @@ class Compiler:
 
         return self.__operatingSystem
     
+    def getCompilerOptionsLevel(self) -> CompilerOptionsLevel:
+        """_summary_
+
+        Returns:
+            CompilerOptionsLevel: _description_
+        """
+
+        return self.__compilerOptionLevel
+    
     def getCompilerOptions(self) -> CompilerOptions:
         """_summary_
 
@@ -143,6 +153,25 @@ class Compiler:
         """
 
         self.__codeFiles = codeFiles
+
+    def setJSONToCompilerOptions(self, pathToJSON: str) -> None:
+        """_summary_
+
+        Args:
+            pathToJSON (str): _description_
+        """
+
+        jsonFile = open(pathToJSON, "r")
+        jsonObject = json.load(jsonFile)
+
+        for compilerOption in jsonObject["compilerOptions"]:
+            options = []
+            if self.__operatingSystem == OperatingSystem.WINDOWS:
+                options = compilerOption["options"]["windows"]
+            elif self.__operatingSystem == OperatingSystem.LINUX:
+                options = compilerOption["options"]["linux"]
+
+            self.__compilerOptions.append(CompilerOptions(compilerOption["id"], options))
     
     def setLevelCompilerOptions(self, compilerLevel: CompilerOptionsLevel) -> None:
         """_summary_
@@ -154,6 +183,7 @@ class Compiler:
         self.__compilerOptionLevel = compilerLevel
         for option in self.__compilerOptions:
             if option.getId() == compilerLevel.value:
+                self.__logManager.logDebug(f"Se ha definido el nivel de opciones de compilación a {compilerLevel.value}")
                 self.__actualCompilerOption = option
                 break
     
