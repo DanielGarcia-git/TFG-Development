@@ -6,9 +6,7 @@ from script.compiler.CodeFileClass import CodeFile
 from script.compiler.CompilerClass import Compiler
 from utils.enum.CompilerOptionsLevelEnum import CompilerOptionsLevel
 from utils.enum.PathsEnum import Paths
-from script.compiler.CompilerOptionsClass import CompilerOptions
 from script.compiler.CodeFileClass import CodeFile
-import os
 
 class CompilerTask(DefaultTask):
     """_summary_
