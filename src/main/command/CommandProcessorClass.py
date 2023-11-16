@@ -1,14 +1,14 @@
-from main.command.ConfigurationClass import Configuration
-from utils.enum.ArgumentsEnum import Arguments
+import sys
 
-from main.tasks.Help import HelpTask
-from main.tasks.Version import VersionTask
-from main.tasks.RepositorySetup import RepositorySetupTask
+from main.command.ConfigurationClass import Configuration
+from main.log.LogManagerClass import LogManager
+from main.tasks.CleanUp import CleanUpTask
 from main.tasks.Compiler import CompilerTask
 from main.tasks.DataSet import DataSetTask
-from main.log.LogManagerClass import LogManager
-
-import sys
+from main.tasks.Help import HelpTask
+from main.tasks.RepositorySetup import RepositorySetupTask
+from main.tasks.Version import VersionTask
+from utils.enum.ArgumentsEnum import Arguments
 
 class CommandProcessor:
     """_summary_
@@ -89,6 +89,8 @@ class CommandProcessor:
                 self.__tasksArray.append(CompilerTask(arg_command))
         elif arg == Arguments.DATASET_SETUP:
             self.__tasksArray.append(DataSetTask())
+        elif arg == Arguments.CLEAN_UP:
+            self.__tasksArray.append(CleanUpTask())
         
     def getListOfTasks(self) -> list:
         """_summary_
