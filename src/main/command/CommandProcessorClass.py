@@ -6,6 +6,7 @@ from main.tasks.Version import VersionTask
 from main.tasks.RepositorySetup import RepositorySetupTask
 from main.tasks.Compiler import CompilerTask
 from main.tasks.DataSet import DataSetTask
+from main.log.LogManagerClass import LogManager
 
 import sys
 
@@ -25,6 +26,7 @@ class CommandProcessor:
 
         if not self.__instance:
             self.__instance = super(CommandProcessor, self).__new__(self)
+            self.__logManager = LogManager()
         return self.__instance
 
     def processArgumentList(self, argumentList: list[str]) -> None:
@@ -35,18 +37,42 @@ class CommandProcessor:
         """
         
         config = Configuration()
+        processingCommandArg = False
+        arg = None
+
+        self.__logManager.logDebug(f"Argumentos recibidos: {argumentList}")
 
         for argument in argumentList:
-            arg = config.isArgAvailable(argument)
-            if arg is not None:
-                config.enableArg(arg)
-                self.__addTask(arg)
+            
+            if processingCommandArg:
+                self.__logManager.logDebug(f"Procesando argumento de comando: {argument}")
+                processingCommandArg = False
+                self.__addTask(arg, argument)
             else:
-                print(f"El argumento {argument} no se reconoce. Prueba con -h o --help para más información.")
-                sys.exit(1)    
+                self.__logManager.logDebug(f"Procesando argumento: {argument}")
+                arg = config.isArgAvailable(argument)
+
+                processingCommandArg = arg.getHasArg()
+
+                if arg is not None:
+                    config.enableArg(arg)
+                else:
+                    print(f"El argumento {argument} no se reconoce. Prueba con -h o --help para más información.")
+                    sys.exit(1)
+                
+                if not processingCommandArg:
+                    self.__addTask(arg, "")
+        
+        # Si esta variable es cierta significa que no hemos recibido el argumento de comando que es necesario
+        if processingCommandArg:
+            self.__addTask(arg, "")
     
-    def __addTask(self, arg: Arguments) -> None:
+    def __addTask(self, arg: Arguments, arg_command: str) -> None:
         """_summary_
+
+        Args:
+            arg (Arguments): _description_
+            arg_command (str): _description_
         """
 
         if arg == Arguments.HELP:
@@ -56,7 +82,11 @@ class CommandProcessor:
         elif arg == Arguments.REPOSITORY_SETUP:
             self.__tasksArray.append(RepositorySetupTask())
         elif arg == Arguments.COMPILER_SETUP:
-            self.__tasksArray.append(CompilerTask())
+            if arg_command == "":
+                self.__logManager.logError("El argumento -c/--compiler-setup requiere un argumento")
+                sys.exit(1)
+            else:
+                self.__tasksArray.append(CompilerTask(arg_command))
         elif arg == Arguments.DATASET_SETUP:
             self.__tasksArray.append(DataSetTask())
         

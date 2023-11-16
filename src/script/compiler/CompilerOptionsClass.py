@@ -3,26 +3,45 @@ class CompilerOptions:
     """_summary_
     """
 
-    def __init__(self) -> None:
-        """_summary_
-        """
-
-        self.__optimisationLevel = 0
-
-    def setOptimisationLevel(self, newLevel: int) -> None:
+    def __init__(self, id: str = "", options: list = []) -> None:
         """_summary_
 
         Args:
-            newLevel (int): _description_
+            id (str, optional): _description_. Defaults to "".
+            options (list, optional): _description_. Defaults to [].
         """
 
-        self.__optimisationLevel = newLevel
+        self.__id = id
+        self.__options = options
     
-    def getOptimisationLevel(self) -> int:
+    def getId(self) -> str:
         """_summary_
 
         Returns:
-            int: _description_
+            str: _description_
         """
 
-        return self.__optimisationLevel
+        return self.__id
+
+    def getOptions(self) -> str:
+        """_summary_
+
+        Returns:
+            str: _description_
+        """
+
+        options = ""
+
+        for option in self.__options:
+            options += option + " "
+
+        return options
+    
+    def setOptions(self, options: list[str]) -> None:
+        """_summary_
+
+        Args:
+            options (list[str]): _description_
+        """
+
+        self.__options = options

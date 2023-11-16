@@ -1,0 +1,20 @@
+{
+    "repositories": [
+        {
+            "type": "code-c",
+            "name": "Lenguaje-C",
+            "url": "https://github.com/mauriciobrito7/Lenguaje-C.git"
+        },
+        {
+            "type": "code-c",
+            "name": "C",
+            "url": "https://github.com/TheAlgorithms/C.git"
+        },
+        {
+            "type": "IA",
+            "name": "lit-gpt",
+            "url": "https://github.com/Lightning-AI/lit-gpt.git"
+        }
+    ]
+}
+

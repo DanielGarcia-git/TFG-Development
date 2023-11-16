@@ -11,17 +11,19 @@ class Arguments(Enum):
     VERSION = ("-v", "--version", "Muestra la versión del programa")
     HELP = ("-h", "--help", "Muestra este mensaje de ayuda")
 
-    def __init__(self, arg_short: str, arg_large: str, description: str) -> None:
+    def __init__(self, arg_short: str, arg_large: str, description: str, has_arg: bool) -> None:
         """_summary_
 
         Args:
             arg_short (str): _description_
             arg_large (str): _description_
             description (str): _description_
+            has_arg (bool): _description_
         """
 
         self.__arg_short = arg_short
         self.__arg_large = arg_large
+        self.__has_arg = has_arg
         self.__description = description
 
     def __str__(self) -> str:
@@ -30,8 +32,11 @@ class Arguments(Enum):
         Returns:
             str: _description_
         """
-    
-        return f"{self.__arg_short}/{self.__arg_large} - {self.__description}"
+
+        options = ""
+        if self.__has_arg:
+            options = " <arg>"
+        return f"{self.__arg_short}/{self.__arg_large}{options} - {self.__description}"
     
     def getArgShort(self) -> str:
         """_summary_
@@ -50,3 +55,12 @@ class Arguments(Enum):
         """
     
         return self.__arg_large
+    
+    def getHasArg(self) -> bool:
+        """_summary_
+
+        Returns:
+            bool: _description_
+        """
+
+        return self.__has_arg

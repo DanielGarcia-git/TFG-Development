@@ -1,4 +1,5 @@
 from script.repository.RepositoryClass import Repository
+import json
 
 class RepositoryList:
     """_summary_
@@ -29,16 +30,8 @@ class RepositoryList:
         self.__pathToRepositoryFile = pathToFile
         self.__repositorySet.clear()
 
-        with open(self.__pathToRepositoryFile, "r") as file:
-            for line in file:
-                line = line.strip()
-                if line:
-                    self.__repositorySet.add(Repository(line))
+        jsonFile = open(pathToFile, "r")
+        jsonObject = json.load(jsonFile)
 
-        
-    def __str__(self) -> str:
-        """_summary_
-
-        Returns:
-            str: _description_
-        """
+        for repository in jsonObject["repositories"]:
+            self.__repositorySet.add(Repository(repository["name"], repository["url"], repository["type"]))
