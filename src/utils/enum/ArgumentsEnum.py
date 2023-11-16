@@ -7,6 +7,7 @@ class Arguments(Enum):
     REPOSITORY_SETUP = ("-r", "--repository-setup", "Descarga los repositorios especificados en el fichero de repositorios.txt", False)
     COMPILER_SETUP = ("-c", "--compiler-setup", "Compila todos los archivos .c que se encuentren en el directorio de repositorios", True)
     DATASET_SETUP = ("-d", "--dataset-setup", "Genera el dataset a partir de los archivos .asm generados por el compilador", False)
+    CLEAN_UP = ("-cl", "--clean-up", "Elimina todos los archivos generados por el programa", False)
     VERSION = ("-v", "--version", "Muestra la versión del programa", False)
     HELP = ("-h", "--help", "Muestra este mensaje de ayuda", False)
 
