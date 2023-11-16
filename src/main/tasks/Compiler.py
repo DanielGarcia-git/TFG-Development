@@ -1,46 +1,36 @@
-import shutil
-from main.tasks.Default import DefaultTask
-from script.compiler.CompilerClass import Compiler
-from utils.enum.PathsEnum import Paths
-from script.compiler.CompilerOptionsClass import CompilerOptions
-from script.compiler.CodeFileClass import CodeFile
 import os
+import shutil
+
+from main.tasks.Default import DefaultTask
+from script.compiler.CodeFileClass import CodeFile
+from script.compiler.CompilerClass import Compiler
+from utils.enum.CompilerOptionsLevelEnum import CompilerOptionsLevel
+from utils.enum.PathsEnum import Paths
 
 class CompilerTask(DefaultTask):
+    """_summary_
+    """
 
-    def __init__(self):
-        """_summary_
-        """
-
-        super().__init__()
-        self.__compiler = Compiler()
-        self.__compilerOptions = CompilerOptions()
-        self.__codeFiles = []
-
-    def __init__(self, arg_command=""):
+    def __init__(self, arg_command: str = ""):
         """_summary_
 
         Args:
-            arg_command (str): _description_
+            arg_command (str, optional): _description_. Defaults to "".
         """
 
         super().__init__(arg_command)
         self.__compiler = Compiler()
-        self.__compilerOptions = CompilerOptions()
+        self.__compiler.setJSONToCompilerOptions(self.arg_command)
         self.__codeFiles = []
 
     def getCodeFiles(self) -> None:
         """_summary_
-
-        Returns:
-            list: _description_
         """
         
         self.__codeFiles = []
 
-        if shutil.os.path.exists(str(Paths.ROOT_PATH_LOCAL_REPOSITORIES.value)) and os.listdir(str(Paths.ROOT_PATH_LOCAL_REPOSITORIES.value)):
-            # Recorrer directorio de repositorios y obtener los archivos de código en C
-            for root, dirs, files in os.walk(str(Paths.ROOT_PATH_LOCAL_REPOSITORIES.value)):
+        if shutil.os.path.exists(str(Paths.ROOT_PATH_LOCAL_CODE_REPOSITORIES.value)) and os.listdir(str(Paths.ROOT_PATH_LOCAL_CODE_REPOSITORIES.value)):
+            for root, dirs, files in os.walk(str(Paths.ROOT_PATH_LOCAL_CODE_REPOSITORIES.value)):
                 for file in files:
                     if file.endswith(".c"):
                         self.__codeFiles.append(CodeFile(str(os.path.join(root, file))))
@@ -58,6 +48,8 @@ class CompilerTask(DefaultTask):
             os.makedirs(str(Paths.PATH_TO_COMPILER_OBJ_OUTPUT.value))
         if not shutil.os.path.exists(str(Paths.PATH_TO_COMPILER_EXE_OUTPUT.value)):
             os.makedirs(str(Paths.PATH_TO_COMPILER_EXE_OUTPUT.value))
+        if not shutil.os.path.exists(str(Paths.PATH_TO_COMPILER_PDB_OUTPUT.value)):
+            os.makedirs(str(Paths.PATH_TO_COMPILER_PDB_OUTPUT.value))
 
     def defineTask(self) -> None:
         """_summary_
@@ -66,5 +58,6 @@ class CompilerTask(DefaultTask):
         self.getCodeFiles()
         self.generateDirectory()
         self.__compiler.setCodeFiles(self.__codeFiles)
-        self.__compiler.setCompilerOptions(self.__compilerOptions)
+        self.__compiler.setLevelCompilerOptions(CompilerOptionsLevel.LEVEL_1)
+        self.logManager.logDebug(f"Se ha definido el nivel de opciones de compilación a {self.__compiler.getCompilerOptionsLevel()}")
         self.__compiler.compilerExec()

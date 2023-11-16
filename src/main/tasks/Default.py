@@ -5,19 +5,11 @@ class DefaultTask(ABC):
     """_summary_
     """
 
-    def __init__(self):
-        """_summary_
-        """
-
-        super().__init__()
-        self.logManager = LogManager()
-        self.arg_command = ""
-
-    def __init__(self, arg_command=""):
+    def __init__(self, arg_command: str = ""):
         """_summary_
 
         Args:
-            arg_command (str): _description_
+            arg_command (str, optional): _description_. Defaults to "".
         """
 
         super().__init__()
