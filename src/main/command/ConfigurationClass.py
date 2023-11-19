@@ -27,6 +27,9 @@ class Configuration:
         self.__configurationArgs[Arguments.HELP] = True
         self.__configurationArgs[Arguments.VERSION] = False
         self.__configurationArgs[Arguments.REPOSITORY_SETUP] = False
+        self.__configurationArgs[Arguments.COMPILER_SETUP] = False
+        self.__configurationArgs[Arguments.DATASET_SETUP] = False
+        self.__configurationArgs[Arguments.DEBUG] = False
 
     def isArgAvailable(self, arg: str) -> Arguments:
         """_summary_

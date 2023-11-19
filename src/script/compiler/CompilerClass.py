@@ -1,7 +1,7 @@
 import json
 import os
-import platform
 import subprocess
+import platform
 
 from main.log.LogManagerClass import LogManager
 from script.compiler.CodeFileClass import CodeFile
@@ -10,6 +10,7 @@ from utils.enum.CompilersEnum import Compilers
 from utils.enum.CompilerOptionsLevelEnum import CompilerOptionsLevel
 from utils.enum.OperatingSystemEnum import OperatingSystem
 from utils.enum.PathsEnum import Paths
+from utils.file.FileClass import File
 
 class Compiler:
     """_summary_
@@ -88,6 +89,7 @@ class Compiler:
         option_fa = f"/Fa{os.path.join(Paths.PATH_TO_COMPILER_ASM_OUTPUT.value, codeFile.getFileName())}.asm"
         option_fo = f"/Fo{os.path.join(Paths.PATH_TO_COMPILER_OBJ_OUTPUT.value, codeFile.getFileName())}.obj"
         option_fd = f"/Fd{os.path.join(Paths.PATH_TO_COMPILER_PDB_OUTPUT.value, codeFile.getFileName())}.pdb"
+
         if self.__compilerOptionLevel == CompilerOptionsLevel.NONE:
             raise Exception("No se ha definido el nivel de opciones de compilación")
 
@@ -104,7 +106,6 @@ class Compiler:
         Args:
             fileToCompile (CodeFile): _description_
         """
-
         
         compile_command = self.__createCommand(fileToCompile)
         self.__logManager.log(f"Compilando {fileToCompile.getPathToFile()}")
@@ -211,4 +212,21 @@ class Compiler:
                     failCount += 1
 
             self.__logManager.log(f"Se compiló {len(self.__codeFiles) - failCount} de {len(self.__codeFiles)} archivos")
-            
+
+        exeFiles = []
+
+        # Ponemos en exeFiles el path a todos los archivos .exe que encontramos en la carpeta Paths.PATH_TO_COMPILER_EXE_OUTPUT
+        for root, dirs, files in os.walk(str(Paths.PATH_TO_COMPILER_EXE_OUTPUT.value)):
+            for file in files:
+                if file.endswith(".exe"):
+                    exeFiles.append(os.path.join(root, file))
+        
+        # Generamos los archivos .objdump con formato de .txt
+        self.__logManager.log("Generando archivos .objdump")
+        for exe in exeFiles:
+            exeFile = File(exe)
+            self.__logManager.log(f"Generando archivo .objdump para {exeFile.getFileName()}")
+            objdump_command = f"dumpbin /DISASM {os.path.join(Paths.PATH_TO_COMPILER_EXE_OUTPUT.value, exeFile.getFileName())}.exe {os.path.join(Paths.PATH_TO_COMPILER_OBJDUMP_OUTPUT.value, exeFile.getFileName())}.txt"
+            self.__logManager.logDebug(f"Comando de objdump: {objdump_command}")
+            with open(os.path.join(Paths.PATH_TO_COMPILER_OBJDUMP_OUTPUT.value, f"{exeFile.getFileName()}.txt"), "w") as f:
+                subprocess.run(objdump_command, stdout=f)
