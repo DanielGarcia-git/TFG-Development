@@ -49,6 +49,8 @@ class CompilerTask(DefaultTask):
             os.makedirs(str(Paths.PATH_TO_COMPILER_OBJ_OUTPUT.value))
         if not shutil.os.path.exists(str(Paths.PATH_TO_COMPILER_EXE_OUTPUT.value)):
             os.makedirs(str(Paths.PATH_TO_COMPILER_EXE_OUTPUT.value))
+        if not shutil.os.path.exists(str(Paths.PATH_TO_COMPILER_OBJDUMP_OUTPUT.value)):
+            os.makedirs(str(Paths.PATH_TO_COMPILER_OBJDUMP_OUTPUT.value))
 
     def defineTask(self) -> None:
         """_summary_

@@ -8,7 +8,7 @@ class Arguments(Enum):
     COMPILER_SETUP = ("-c", "--compiler-setup", "Compila todos los archivos .c que se encuentren en el directorio de repositorios", True)
     DATASET_SETUP = ("-d", "--dataset-setup", "Genera el dataset a partir de los archivos .asm generados por el compilador", False)
     CLEAN_UP = ("-cl", "--clean-up", "Elimina todos los archivos generados por el programa", False)
-    DEBUG = ("-D", "--debug", "Muestra mensajes de debug")
+    DEBUG = ("-D", "--debug", "Muestra mensajes de debug", False)
     VERSION = ("-v", "--version", "Muestra la versión del programa", False)
     HELP = ("-h", "--help", "Muestra este mensaje de ayuda", False)
 

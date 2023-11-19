@@ -2,6 +2,7 @@ import datetime
 import logging
 import os
 import shutil
+import colorlog
 from utils.enum.PathsEnum import Paths
 from main.command.ConfigurationClass import Configuration
 from utils.enum.ArgumentsEnum import Arguments
@@ -24,7 +25,18 @@ class LogManager:
             self.__config = Configuration()
             self.logger = logging.getLogger(__name__)
             self.logger.setLevel(logging.DEBUG)
-            formatter = logging.Formatter('%(asctime)s - %(levelname)s - %(message)s')
+            formatter = colorlog.ColoredFormatter(
+                '%(log_color)s%(asctime)s - %(levelname)s - %(message)s',
+                log_colors={
+                    'DEBUG': 'reset',
+                    'INFO': 'reset',
+                    'WARNING': 'yellow',
+                    'ERROR': 'red',
+                    'CRITICAL': 'red,bg_white',
+                },
+                secondary_log_colors={},
+                style='%'
+            )
             ch = logging.StreamHandler()
             ch.setLevel(logging.DEBUG)
             ch.setFormatter(formatter)
@@ -81,5 +93,3 @@ class LogManager:
 
         if self.__config.getArg(Arguments.DEBUG):
             self.logger.debug(message)
-    
-

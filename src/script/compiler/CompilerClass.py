@@ -10,6 +10,7 @@ from utils.enum.CompilersEnum import Compilers
 from utils.enum.CompilerOptionsLevelEnum import CompilerOptionsLevel
 from utils.enum.OperatingSystemEnum import OperatingSystem
 from utils.enum.PathsEnum import Paths
+from utils.file.FileClass import File
 
 class Compiler:
     """_summary_
@@ -88,6 +89,7 @@ class Compiler:
         option_fa = f"/Fa{os.path.join(Paths.PATH_TO_COMPILER_ASM_OUTPUT.value, codeFile.getFileName())}.asm"
         option_fo = f"/Fo{os.path.join(Paths.PATH_TO_COMPILER_OBJ_OUTPUT.value, codeFile.getFileName())}.obj"
         option_fd = f"/Fd{os.path.join(Paths.PATH_TO_COMPILER_PDB_OUTPUT.value, codeFile.getFileName())}.pdb"
+
         if self.__compilerOptionLevel == CompilerOptionsLevel.NONE:
             raise Exception("No se ha definido el nivel de opciones de compilación")
 
@@ -202,14 +204,14 @@ class Compiler:
         else:
             failCount = 0
             count = 0
-            # self.__logManager.log(f"Compilando {len(self.__codeFiles)} archivos")
-            # for codeFile in self.__codeFiles:
-            #     count += 1
-            #     self.__logManager.log(f"Compilando archivo {count} de {len(self.__codeFiles)}")
-            #     if self.__compile(codeFile):
-            #         failCount += 1
+            self.__logManager.log(f"Compilando {len(self.__codeFiles)} archivos")
+            for codeFile in self.__codeFiles:
+                count += 1
+                self.__logManager.log(f"Compilando archivo {count} de {len(self.__codeFiles)}")
+                if self.__compile(codeFile):
+                    failCount += 1
 
-            # self.__logManager.log(f"Se compiló {len(self.__codeFiles) - failCount} de {len(self.__codeFiles)} archivos")
+            self.__logManager.log(f"Se compiló {len(self.__codeFiles) - failCount} de {len(self.__codeFiles)} archivos")
 
         exeFiles = []
 

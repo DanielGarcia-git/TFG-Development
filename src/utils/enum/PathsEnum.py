@@ -7,8 +7,7 @@ class Paths(Enum):
 
     ROOT_PATH = os.getcwd()
     # Data directories
-    PATH_TO_REPOSITORY_LIST = ROOT_PATH + "\\data\\repositoryList.txt"
-    PATH_TO_REPOSITORY_IA = ROOT_PATH + "\\data\\IA_Repo.txt"
+    PATH_TO_REPOSITORY_LIST = ROOT_PATH + "\\data\\repositories\\repositoryList.json"
     PATH_TO_COMPILER_OPTIONS = ROOT_PATH + "\\data\\compiler\\compilerOptions.json"
     # Output directories
     PATH_TO_OUTPUT = ROOT_PATH + "\\output\\"
