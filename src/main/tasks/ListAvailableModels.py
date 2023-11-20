@@ -1,14 +1,16 @@
-import subprocess
 from main.tasks.Default import DefaultTask
 from utils.enum.PathsEnum import Paths
+from script.ia.lit_gpt.LitGPTUtilsClass import LitGPTUtils
 
 class ListAvailableModelsTask(DefaultTask):
 
     def defineTask(self) -> None:
 
-        command = f"python {Paths.ROOT_PATH_LOCAL_IA_REPOSITORIES}\\lit-gpt\\scripts\\download.py"
-        result = subprocess.run(command, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
+        models = LitGPTUtils.getLitGPTAvailableModels()
 
-        if result.returncode == 0:
+        if len(models) > 0:
             print("Listado de modelos disponibles:")
-            print(result.stdout)
+            for model in models:
+                print(f"\t- {model}")
+        else:
+            self.logManager.logError("No se han encontrado modelos disponibles o ha ocurrido un error al obtenerlos")
