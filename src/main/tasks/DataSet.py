@@ -14,8 +14,8 @@ class DataSetTask(DefaultTask):
 
         super().__init__()
         self.__dataSet = DataSet()
-        self.__asemblerFiles = list()
-        self.__codeFiles = list()
+        self.__asemblerFiles = list[CodeFile]
+        self.__codeFiles = list[CodeFile]
     
     def getFileByPathAndType(self, path: str, type: str) -> None:
         """_summary_
@@ -24,7 +24,6 @@ class DataSetTask(DefaultTask):
         codeFiles = []
 
         if shutil.os.path.exists(path) and os.listdir(path):
-            # Recorrer directorio de repositorios y obtener los archivos de código en C
             for root, dirs, files in os.walk(path):
                 for file in files:
                     if file.endswith(type):
@@ -36,14 +35,16 @@ class DataSetTask(DefaultTask):
         """_summary_
         """
 
-        self.__asemblerFiles = self.getFileByPathAndType(Paths.PATH_TO_COMPILER_ASM_OUTPUT.value, ".asm")
-        self.__codeFiles = self.getFileByPathAndType(Paths.ROOT_PATH_LOCAL_REPOSITORIES.value, ".c")
+        self.__asemblerFiles = self.getFileByPathAndType(Paths.PATH_TO_COMPILER_OBJDUMP_OUTPUT.value, ".txt")
+        self.__codeFiles = self.getFileByPathAndType(Paths.ROOT_PATH_LOCAL_CODE_REPOSITORIES.value, ".c")
 
         if self.__asemblerFiles:
             if self.__codeFiles:
-                for codeFile in self.__codeFiles:
-                    for asemblerFile in self.__asemblerFiles:
+                self.logManager.log("Recopilando los datos para construir el dataset")
+                for asemblerFile in self.__asemblerFiles:
+                    for codeFile in self.__codeFiles:
                         if codeFile.getFileName() == asemblerFile.getFileName():
+                            self.logManager.logDebug(f"Se ha encontrado el archivo {codeFile.getFileName()}")
                             dataFineTuning = DataFineTuning()
                             dataFineTuning.setOutput(str(codeFile))
                             dataFineTuning.setInput(str(asemblerFile))

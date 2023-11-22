@@ -1,5 +1,7 @@
 output/
 log/
+checkpoints/
+
 *.exe
 *.obj
 *.asm
