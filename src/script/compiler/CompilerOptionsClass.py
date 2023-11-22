@@ -23,19 +23,10 @@ class CompilerOptions:
 
         return self.__id
 
-    def getOptions(self) -> str:
-        """_summary_
+    def getOptions(self) -> list[str]:
+        """"""
 
-        Returns:
-            str: _description_
-        """
-
-        options = ""
-
-        for option in self.__options:
-            options += option + " "
-
-        return options
+        return self.__options
     
     def setOptions(self, options: list[str]) -> None:
         """_summary_

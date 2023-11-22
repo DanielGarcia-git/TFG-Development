@@ -75,7 +75,7 @@ class Compiler:
         else:
             self.__operatingSystem = OperatingSystem.NONE
     
-    def __createCommand(self, codeFile: CodeFile) -> str:
+    def __createCommand(self, codeFile: CodeFile) -> list[str]:
         """_summary_
 
         Args:
@@ -85,18 +85,19 @@ class Compiler:
             str: _description_
         """
 
-        option_fe = f"/Fe{os.path.join(Paths.PATH_TO_COMPILER_EXE_OUTPUT.value, codeFile.getFileName())}.exe"
-        option_fa = f"/Fa{os.path.join(Paths.PATH_TO_COMPILER_ASM_OUTPUT.value, codeFile.getFileName())}.asm"
-        option_fo = f"/Fo{os.path.join(Paths.PATH_TO_COMPILER_OBJ_OUTPUT.value, codeFile.getFileName())}.obj"
-        option_fd = f"/Fd{os.path.join(Paths.PATH_TO_COMPILER_PDB_OUTPUT.value, codeFile.getFileName())}.pdb"
+        
 
         if self.__compilerOptionLevel == CompilerOptionsLevel.NONE:
             raise Exception("No se ha definido el nivel de opciones de compilación")
 
         if self.__operatingSystem == OperatingSystem.WINDOWS:
-            return f"{str(self.__compilerExec.value)} {codeFile.getPathToFile()} {self.__actualCompilerOption.getOptions()} {option_fa} {option_fe} {option_fo}"
+            option_fe = f"{os.path.join(Paths.PATH_TO_COMPILER_EXE_OUTPUT.value, codeFile.getFileName())}.exe"
+            option_fa = f"{os.path.join(Paths.PATH_TO_COMPILER_ASM_OUTPUT.value, codeFile.getFileName())}.asm"
+            option_fo = f"{os.path.join(Paths.PATH_TO_COMPILER_OBJ_OUTPUT.value, codeFile.getFileName())}.obj"
+            option_fd = f"{os.path.join(Paths.PATH_TO_COMPILER_PDB_OUTPUT.value, codeFile.getFileName())}.pdb"
+            return [str(self.__compilerExec.value), codeFile.getPathToFile()] + [self.__actualCompilerOption.getOptions(), "/Fa", option_fa, "/Fe", option_fe, "/Fo", option_fo]
         elif self.__operatingSystem == OperatingSystem.LINUX:
-            return f""
+            return [str(self.__compilerExec.value)] + self.__actualCompilerOption.getOptions() + [codeFile.getPathToFile(), "-o", os.path.join(Paths.PATH_TO_COMPILER_EXE_OUTPUT.value, codeFile.getFileName())]
         else:
             return None
 
@@ -218,7 +219,9 @@ class Compiler:
         # Ponemos en exeFiles el path a todos los archivos .exe que encontramos en la carpeta Paths.PATH_TO_COMPILER_EXE_OUTPUT
         for root, dirs, files in os.walk(str(Paths.PATH_TO_COMPILER_EXE_OUTPUT.value)):
             for file in files:
-                if file.endswith(".exe"):
+                if file.endswith(".exe") and self.__operatingSystem == OperatingSystem.WINDOWS:
+                    exeFiles.append(os.path.join(root, file))
+                elif self.__operatingSystem == OperatingSystem.LINUX:
                     exeFiles.append(os.path.join(root, file))
         
         # Generamos los archivos .objdump con formato de .txt
@@ -226,7 +229,12 @@ class Compiler:
         for exe in exeFiles:
             exeFile = File(exe)
             self.__logManager.log(f"Generando archivo .objdump para {exeFile.getFileName()}")
-            objdump_command = f"dumpbin /DISASM {os.path.join(Paths.PATH_TO_COMPILER_EXE_OUTPUT.value, exeFile.getFileName())}.exe {os.path.join(Paths.PATH_TO_COMPILER_OBJDUMP_OUTPUT.value, exeFile.getFileName())}.txt"
+            objdump_command = []
+            if self.__operatingSystem == OperatingSystem.WINDOWS:
+                objdump_command = ["dumpbin", "/DISASM", os.path.join(Paths.PATH_TO_COMPILER_EXE_OUTPUT.value, exeFile.getFileName()) + ".exe"]
+            elif self.__operatingSystem == OperatingSystem.LINUX:
+                objdump_command = ["objdump", "-d", os.path.join(Paths.PATH_TO_COMPILER_EXE_OUTPUT.value, exeFile.getFileName())]
+
             self.__logManager.logDebug(f"Comando de objdump: {objdump_command}")
             with open(os.path.join(Paths.PATH_TO_COMPILER_OBJDUMP_OUTPUT.value, f"{exeFile.getFileName()}.txt"), "w") as f:
                 subprocess.run(objdump_command, stdout=f)
