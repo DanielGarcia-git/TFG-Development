@@ -41,8 +41,8 @@ class DataSetTask(DefaultTask):
         if self.__asemblerFiles:
             if self.__codeFiles:
                 self.logManager.log("Recopilando los datos para construir el dataset")
-                for codeFile in self.__codeFiles:
-                    for asemblerFile in self.__asemblerFiles:
+                for asemblerFile in self.__asemblerFiles:
+                    for codeFile in self.__codeFiles:
                         if codeFile.getFileName() == asemblerFile.getFileName():
                             self.logManager.logDebug(f"Se ha encontrado el archivo {codeFile.getFileName()}")
                             dataFineTuning = DataFineTuning()
