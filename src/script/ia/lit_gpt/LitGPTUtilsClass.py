@@ -33,7 +33,7 @@ class LitGPTUtils:
 
         self.__logManager.logDebug(f"Imprimiendo el resultado del comando en el archivo {outputFile}")
         res = result.returncode == 0
-        with open(f"{rootPath}\\{outputFile}", "w") as file:
+        with open(f"{rootPath}/{outputFile}", "w") as file:
             if res:
                 file.write(result.stdout)
             else:
@@ -49,7 +49,7 @@ class LitGPTUtils:
             list[str]: _description_
         """
 
-        command = f"python {str(Paths.ROOT_PATH_LOCAL_IA_REPOSITORIES.value)}\\lit-gpt\\scripts\\download.py"
+        command = f"python {str(Paths.ROOT_PATH_LOCAL_IA_REPOSITORIES.value)}/lit-gpt/scripts/download.py"
         self.__logManager.logDebug(f"Comando a ejecutar: {command}")
         result = subprocess.run(command, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
 
@@ -67,8 +67,8 @@ class LitGPTUtils:
             bool: _description_
         """
         
-        os.chdir(str(Paths.ROOT_PATH_LOCAL_IA_REPOSITORIES.value) + "\\lit-gpt")
-        command_install_dependencies = f"pip install -r .\\requirements-all.txt"
+        os.chdir(str(Paths.ROOT_PATH_LOCAL_IA_REPOSITORIES.value) + "/lit-gpt")
+        command_install_dependencies = f"pip install -r ./requirements-all.txt"
         output_file = datetime.datetime.now().strftime("%Y-%m-%d_%H-%M-%S.txt")
 
         self.__logManager.logDebug(f"Comando a ejecutar: {command_install_dependencies}")
@@ -87,8 +87,8 @@ class LitGPTUtils:
             bool: _description_
         """
 
-        os.chdir(str(Paths.ROOT_PATH_LOCAL_IA_REPOSITORIES.value) + "\\lit-gpt")
-        command = f"python .\\scripts\\download.py --repo_id {model}"
+        os.chdir(str(Paths.ROOT_PATH_LOCAL_IA_REPOSITORIES.value) + "/lit-gpt")
+        command = f"python ./scripts/download.py --repo_id {model}"
         output_file = "download_" + datetime.datetime.now().strftime("%Y-%m-%d_%H-%M-%S.txt")
 
         self.__logManager.logDebug(f"Comando a ejecutar: {command}")
@@ -112,8 +112,8 @@ class LitGPTUtils:
             bool: _description_
         """
 
-        os.chdir(str(Paths.ROOT_PATH_LOCAL_IA_REPOSITORIES.value) + "\\lit-gpt")
-        command = f"python .\\scripts\\download.py --checkpoint_dir .\\checkpoints\\{model}"
+        os.chdir(str(Paths.ROOT_PATH_LOCAL_IA_REPOSITORIES.value) + "/lit-gpt")
+        command = f"python ./scripts/download.py --checkpoint_dir ./checkpoints/{model}"
         output_file = "checkpoint_" + datetime.datetime.now().strftime("%Y-%m-%d_%H-%M-%S.txt")
 
         self.__logManager.logDebug(f"Comando a ejecutar: {command}")
