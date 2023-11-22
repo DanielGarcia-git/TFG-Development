@@ -1,23 +1,17 @@
 from io import TextIOWrapper
 from pathlib import Path
+import chardet
 
 class File:
     """_summary_
     """
 
-    def __init__(self) -> None:
+    def __init__(self, path: str = "") -> None:
         """_summary_
         """
 
-        self.__file = TextIOWrapper
-        self.__pathToFile = ""
-    
-    def __init__(self, path: str) -> None:
-        """_summary_
-        """
-
-        self.__file = TextIOWrapper
-        self.__pathToFile = path
+        self.file = TextIOWrapper
+        self.pathToFile = path
     
     def setPathToFile(self, newPath: str) -> None:
         """_summary_
@@ -26,7 +20,7 @@ class File:
             newPath (str): _description_
         """
 
-        self.__pathToFile = newPath
+        self.pathToFile = newPath
     
     def getPathToFile(self) -> str:
         """_summary_
@@ -35,7 +29,7 @@ class File:
             str: _description_
         """
 
-        return self.__pathToFile
+        return self.pathToFile
 
     def getFileName(self) -> str:
         """_summary_
@@ -44,7 +38,7 @@ class File:
             str: _description_
         """
 
-        return Path(self.__pathToFile).stem
+        return Path(self.pathToFile).stem
     
     def getData(self) -> list[str]:
         """_summary_
@@ -53,5 +47,23 @@ class File:
             list[str]: _description_
         """
 
-        self.__codeFile = open(self.__pathToFile, encoding=None)
-        return self.__codeFile.readlines()
+        self.file = open(self.pathToFile, encoding=None)
+        return self.file.readlines()
+    
+    def getEncoding(self) -> str:
+        """_summary_
+
+        Returns:
+            str: _description_
+        """
+
+        with open(self.pathToFile, 'rb') as file:
+            detector = chardet.universaldetector.UniversalDetector()
+            for line in file:
+                detector.feed(line)
+                if detector.done:
+                    break
+            detector.close()
+        
+        return detector.result['encoding']
+    

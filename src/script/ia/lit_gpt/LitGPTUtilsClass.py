@@ -67,7 +67,8 @@ class LitGPTUtils:
             bool: _description_
         """
         
-        command_install_dependencies = f"pip install -r {str(Paths.ROOT_PATH_LOCAL_IA_REPOSITORIES.value)}\\lit-gpt\\requirements-all.txt"
+        os.chdir(str(Paths.ROOT_PATH_LOCAL_IA_REPOSITORIES.value) + "\\lit-gpt")
+        command_install_dependencies = f"pip install -r .\\requirements-all.txt"
         output_file = datetime.datetime.now().strftime("%Y-%m-%d_%H-%M-%S.txt")
 
         self.__logManager.logDebug(f"Comando a ejecutar: {command_install_dependencies}")
@@ -86,7 +87,8 @@ class LitGPTUtils:
             bool: _description_
         """
 
-        command = f"python {str(Paths.ROOT_PATH_LOCAL_IA_REPOSITORIES.value)}\\lit-gpt\\scripts\\download.py --repo_id {model}"
+        os.chdir(str(Paths.ROOT_PATH_LOCAL_IA_REPOSITORIES.value) + "\\lit-gpt")
+        command = f"python .\\scripts\\download.py --repo_id {model}"
         output_file = "download_" + datetime.datetime.now().strftime("%Y-%m-%d_%H-%M-%S.txt")
 
         self.__logManager.logDebug(f"Comando a ejecutar: {command}")
@@ -110,7 +112,8 @@ class LitGPTUtils:
             bool: _description_
         """
 
-        command = f"python {str(Paths.ROOT_PATH_LOCAL_IA_REPOSITORIES.value)}\\lit-gpt\\scripts\\download.py --checkpoint_dir {str(Paths.ROOT_PATH_LOCAL_IA_REPOSITORIES.value)}\\lit-gpt\\checkpoints\\{model}"
+        os.chdir(str(Paths.ROOT_PATH_LOCAL_IA_REPOSITORIES.value) + "\\lit-gpt")
+        command = f"python .\\scripts\\download.py --checkpoint_dir .\\checkpoints\\{model}"
         output_file = "checkpoint_" + datetime.datetime.now().strftime("%Y-%m-%d_%H-%M-%S.txt")
 
         self.__logManager.logDebug(f"Comando a ejecutar: {command}")

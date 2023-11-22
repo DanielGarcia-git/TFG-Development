@@ -63,8 +63,8 @@ class DataSet:
         
         with open(str(Paths.PATH_TO_DATASET.value) + "dataSet.json", 'w') as outfile:
             outfile.write("[")
-            for data in self.__dataSet:
-                outfile.write(data.getDataFineTuningJSON())
-                if data != self.__dataSet[-1]:
+            for i, data in enumerate(self.__dataSet):
+                outfile.write(json.dumps(data.getDataFineTuningJSON()))
+                if i != len(self.__dataSet) - 1:
                     outfile.write(",")
             outfile.write("]")

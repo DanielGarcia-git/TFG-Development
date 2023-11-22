@@ -39,11 +39,17 @@ class DataFineTuning:
         
         self.__output = output
     
-    def getDataFineTuningJSON(self) -> str:
+    def getDataFineTuningJSON(self) -> dict[str, str]:
         """_summary_
 
         Returns:
             str: _description_
         """
         
-        return "{\"instruction\": \"" + self.__instruction + "\", \"input\": \"" + self.__input + "\", \"output\": \"" + self.__output + "\"}"
+        json_data = {
+            "instruction": self.__instruction,
+            "input": self.__input,
+            "output": self.__output
+        }
+
+        return json_data
