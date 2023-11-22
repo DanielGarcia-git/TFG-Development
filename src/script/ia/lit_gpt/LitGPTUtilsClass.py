@@ -49,7 +49,7 @@ class LitGPTUtils:
             list[str]: _description_
         """
 
-        command = f"python {str(Paths.ROOT_PATH_LOCAL_IA_REPOSITORIES.value)}/lit-gpt/scripts/download.py"
+        command = f"python {str(Paths.ROOT_PATH_LOCAL_IA_REPOSITORIES.value)}lit-gpt/scripts/download.py"
         self.__logManager.logDebug(f"Comando a ejecutar: {command}")
         result = subprocess.run(command, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
 
