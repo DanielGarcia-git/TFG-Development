@@ -11,6 +11,7 @@ from utils.enum.CompilerOptionsLevelEnum import CompilerOptionsLevel
 from utils.enum.OperatingSystemEnum import OperatingSystem
 from utils.enum.PathsEnum import Paths
 from utils.file.FileClass import File
+from utils.file.ObjdumpFileClass import ObjdumpFile
 
 class Compiler:
     """_summary_
@@ -238,3 +239,10 @@ class Compiler:
             self.__logManager.logDebug(f"Comando de objdump: {objdump_command}")
             with open(os.path.join(Paths.PATH_TO_COMPILER_OBJDUMP_OUTPUT.value, f"{exeFile.getFileName()}.txt"), "w") as f:
                 subprocess.run(objdump_command, stdout=f)
+
+        for root, dirs, files in os.walk(str(Paths.PATH_TO_COMPILER_OBJDUMP_OUTPUT.value)):
+            for file in files:
+                objdumpFile = ObjdumpFile(os.path.join(root, file))
+                objdumpFile.clean()
+
+        
