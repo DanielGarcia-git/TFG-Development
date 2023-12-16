@@ -4,7 +4,7 @@ import subprocess
 import platform
 
 from main.log.LogManagerClass import LogManager
-from script.compiler.CodeFileClass import CodeFile
+from utils.file.CodeFileClass import CodeFile
 from script.compiler.CompilerOptionsClass import CompilerOptions
 from utils.enum.CompilersEnum import Compilers
 from utils.enum.CompilerOptionsLevelEnum import CompilerOptionsLevel
