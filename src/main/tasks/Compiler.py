@@ -28,8 +28,7 @@ class CompilerTask(DefaultTask):
         """
         
         self.__codeFiles = []
-
-        if shutil.os.path.exists(str(Paths.ROOT_PATH_LOCAL_CODE_REPOSITORIES.value)) and os.listdir(str(Paths.ROOT_PATH_LOCAL_CODE_REPOSITORIES.value)):
+        if shutil.os.path.exists(Paths.ROOT_PATH_LOCAL_CODE_REPOSITORIES.value) and os.listdir(Paths.ROOT_PATH_LOCAL_CODE_REPOSITORIES.value):
             for root, dirs, files in os.walk(str(Paths.ROOT_PATH_LOCAL_CODE_REPOSITORIES.value)):
                 for file in files:
                     if file.endswith(".c"):
@@ -42,14 +41,14 @@ class CompilerTask(DefaultTask):
         """_summary_
         """
 
-        if not shutil.os.path.exists(str(Paths.PATH_TO_COMPILER_ASM_OUTPUT.value)):
-            os.makedirs(str(Paths.PATH_TO_COMPILER_ASM_OUTPUT.value))
-        if not shutil.os.path.exists(str(Paths.PATH_TO_COMPILER_OBJ_OUTPUT.value)):
-            os.makedirs(str(Paths.PATH_TO_COMPILER_OBJ_OUTPUT.value))
-        if not shutil.os.path.exists(str(Paths.PATH_TO_COMPILER_EXE_OUTPUT.value)):
-            os.makedirs(str(Paths.PATH_TO_COMPILER_EXE_OUTPUT.value))
-        if not shutil.os.path.exists(str(Paths.PATH_TO_COMPILER_OBJDUMP_OUTPUT.value)):
-            os.makedirs(str(Paths.PATH_TO_COMPILER_OBJDUMP_OUTPUT.value))
+        if not shutil.os.path.exists(Paths.PATH_TO_COMPILER_ASM_OUTPUT.value):
+            os.makedirs(Paths.PATH_TO_COMPILER_ASM_OUTPUT.value)
+        if not shutil.os.path.exists(Paths.PATH_TO_COMPILER_OBJ_OUTPUT.value):
+            os.makedirs(Paths.PATH_TO_COMPILER_OBJ_OUTPUT.value)
+        if not shutil.os.path.exists(Paths.PATH_TO_COMPILER_EXE_OUTPUT.value):
+            os.makedirs(Paths.PATH_TO_COMPILER_EXE_OUTPUT.value)
+        if not shutil.os.path.exists(Paths.PATH_TO_COMPILER_OBJDUMP_OUTPUT.value):
+            os.makedirs(Paths.PATH_TO_COMPILER_OBJDUMP_OUTPUT.value)
 
     def defineTask(self) -> None:
         """_summary_
