@@ -2,11 +2,10 @@ import os
 import shutil
 
 from main.tasks.Default import DefaultTask
-from script.compiler.CodeFileClass import CodeFile
+from utils.file.CodeFileClass import CodeFile
 from script.compiler.CompilerClass import Compiler
 from utils.enum.CompilerOptionsLevelEnum import CompilerOptionsLevel
 from utils.enum.PathsEnum import Paths
-from script.compiler.CodeFileClass import CodeFile
 
 class CompilerTask(DefaultTask):
     """_summary_
