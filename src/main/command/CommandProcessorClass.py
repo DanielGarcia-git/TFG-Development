@@ -5,11 +5,7 @@ from main.log.LogManagerClass import LogManager
 from main.tasks.CleanUp import CleanUpTask
 from main.tasks.Compiler import CompilerTask
 from main.tasks.DataSet import DataSetTask
-from main.tasks.Finetuning import FinetuningTask
 from main.tasks.Help import HelpTask
-from main.tasks.IASetup import IASetupTask
-from main.tasks.ListAvailableFinetuning import ListAvailableFinetuningTask
-from main.tasks.ListAvailableModels import ListAvailableModelsTask
 from main.tasks.RepositorySetup import RepositorySetupTask
 from main.tasks.Version import VersionTask
 from utils.enum.ArgumentsEnum import Arguments
@@ -95,22 +91,6 @@ class CommandProcessor:
             self.__tasksArray.append(DataSetTask())
         elif arg == Arguments.CLEAN_UP:
             self.__tasksArray.append(CleanUpTask())
-        elif arg == Arguments.IA_SETUP:
-            if arg_command == "":
-                self.__logManager.logError("El argumento -i/--ia-setup requiere un argumento, el modelo a utilizar, para mas información ejecuta la opción -lm/--list-available-models")
-                sys.exit(1)
-            else:
-                self.__tasksArray.append(IASetupTask(arg_command))
-        elif arg == Arguments.FINETUNING:
-            if arg_command == "":
-                self.__logManager.logError("El argumento -f/--finetuning requiere un argumento, el tipo de finetuning a realizar, para mas información ejecuta la opción -lf/--list-available-finetuning")
-                sys.exit(1)
-            else:
-                self.__tasksArray.append(FinetuningTask(arg_command))
-        elif arg == Arguments.LIST_AVAILABLE_MODELS:
-            self.__tasksArray.append(ListAvailableModelsTask())
-        elif arg == Arguments.LIST_AVAILABLE_FINETUNING:
-            self.__tasksArray.append(ListAvailableFinetuningTask())
         
     def getListOfTasks(self) -> list:
         """_summary_

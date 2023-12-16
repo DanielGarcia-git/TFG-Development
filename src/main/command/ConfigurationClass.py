@@ -31,10 +31,6 @@ class Configuration:
         self.__configurationArgs[Arguments.DATASET_SETUP] = False
         self.__configurationArgs[Arguments.DEBUG] = False
         self.__configurationArgs[Arguments.CLEAN_UP] = False
-        self.__configurationArgs[Arguments.FINETUNING] = False
-        self.__configurationArgs[Arguments.IA_SETUP] = False
-        self.__configurationArgs[Arguments.LIST_AVAILABLE_MODELS] = False
-        self.__configurationArgs[Arguments.LIST_AVAILABLE_FINETUNING] = False
 
     def isArgAvailable(self, arg: str) -> Arguments:
         """_summary_

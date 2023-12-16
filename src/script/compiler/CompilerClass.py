@@ -86,8 +86,6 @@ class Compiler:
             str: _description_
         """
 
-        
-
         if self.__compilerOptionLevel == CompilerOptionsLevel.NONE:
             raise Exception("No se ha definido el nivel de opciones de compilación")
 
@@ -95,8 +93,7 @@ class Compiler:
             option_fe = f"{os.path.join(Paths.PATH_TO_COMPILER_EXE_OUTPUT.value, codeFile.getFileName())}.exe"
             option_fa = f"{os.path.join(Paths.PATH_TO_COMPILER_ASM_OUTPUT.value, codeFile.getFileName())}.asm"
             option_fo = f"{os.path.join(Paths.PATH_TO_COMPILER_OBJ_OUTPUT.value, codeFile.getFileName())}.obj"
-            option_fd = f"{os.path.join(Paths.PATH_TO_COMPILER_PDB_OUTPUT.value, codeFile.getFileName())}.pdb"
-            return [str(self.__compilerExec.value), codeFile.getPathToFile()] + [self.__actualCompilerOption.getOptions(), "/Fa", option_fa, "/Fe", option_fe, "/Fo", option_fo]
+            return [str(self.__compilerExec.value), codeFile.getPathToFile()] + self.__actualCompilerOption.getOptions() + [f"/Fe{option_fe}", f"/Fa{option_fa}", f"/Fo{option_fo}"]
         elif self.__operatingSystem == OperatingSystem.LINUX:
             return [str(self.__compilerExec.value)] + self.__actualCompilerOption.getOptions() + [codeFile.getPathToFile(), "-o", os.path.join(Paths.PATH_TO_COMPILER_EXE_OUTPUT.value, codeFile.getFileName())]
         else:

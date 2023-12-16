@@ -1,5 +1,5 @@
 from utils.enum.ArgumentsEnum import Arguments
-from main.tasks.Default import DefaultTask
+from utils.abstract.Default import DefaultTask
 
 class HelpTask(DefaultTask):
 

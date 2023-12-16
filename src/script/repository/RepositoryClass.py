@@ -1,9 +1,10 @@
+import shutil
+import os
+
 from git import Repo
 from utils.enum.PathsEnum import Paths
 from utils.enum.RepositoryTypeEnum import RepositoryType
 from main.log.LogManagerClass import LogManager
-import shutil
-from shutil import rmtree
 
 class Repository:
     """_summary_
@@ -22,9 +23,7 @@ class Repository:
         self.__nameRepo = name
         self.__urlRepo = url
         if type == str(RepositoryType.REPOSITORY_CODE_C.value):
-            self.__pathToLocalRepository = str(Paths.ROOT_PATH_LOCAL_CODE_REPOSITORIES.value) + self.__nameRepo
-        elif type == str(RepositoryType.REPOSITORY_IA.value):
-            self.__pathToLocalRepository = str(Paths.ROOT_PATH_LOCAL_IA_REPOSITORIES.value) + self.__nameRepo
+            self.__pathToLocalRepository = str(Paths.ROOT_PATH_LOCAL_CODE_REPOSITORIES.value) + os.sep + self.__nameRepo
         
         if not shutil.os.path.exists(self.__pathToLocalRepository):
             self.__logManager.log("Clonando repositorio " + self.__nameRepo + " en " + self.__pathToLocalRepository)

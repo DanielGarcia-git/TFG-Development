@@ -1,5 +1,6 @@
-from enum import Enum
 import os
+
+from enum import Enum
 
 class Paths(Enum):
     """_summary_
@@ -7,19 +8,15 @@ class Paths(Enum):
 
     ROOT_PATH = os.getcwd()
     # Data directories
-    PATH_TO_REPOSITORY_LIST = os.path.join(os.getcwd(), "data/repositories/repositoryList.json")
-    PATH_TO_COMPILER_OPTIONS = os.path.join(os.getcwd(), "data/compiler/compilerOptions.json")
+    PATH_TO_REPOSITORY_LIST = os.path.join(ROOT_PATH, "data", "repositories", "repositoryList.json")
+    PATH_TO_COMPILER_OPTIONS = os.path.join(ROOT_PATH, "data", "compiler", "compilerOptions.json")
     # Log directories
-    PATH_TO_LOG_DIR = os.path.join(os.getcwd(), "log/")
-    PATH_TO_PIP_LOG_DIR = os.path.join(os.getcwd(), "log/pip/")
-    PATH_TO_LIT_GPT_LOG_DIR = os.path.join(os.getcwd(), "log/lit-gpt/")
+    PATH_TO_LOG_DIR = os.path.join(ROOT_PATH, "log")
     # Output directories
-    PATH_TO_OUTPUT = os.path.join(os.getcwd(), "output/")
-    ROOT_PATH_LOCAL_CODE_REPOSITORIES = os.path.join(os.getcwd(), "output/localRepositories/code/")
-    ROOT_PATH_LOCAL_IA_REPOSITORIES = os.path.join(os.getcwd(), "output/localRepositories/IA/")
-    PATH_TO_COMPILER_EXE_OUTPUT = os.path.join(os.getcwd(), "output/compiler/exe/")
-    PATH_TO_COMPILER_OBJ_OUTPUT = os.path.join(os.getcwd(), "output/compiler/obj/")
-    PATH_TO_COMPILER_ASM_OUTPUT = os.path.join(os.getcwd(), "output/compiler/asm/")
-    PATH_TO_COMPILER_OBJDUMP_OUTPUT = os.path.join(os.getcwd(), "output/compiler/objdump/")
-    PATH_TO_COMPILER_PDB_OUTPUT = os.path.join(os.getcwd(), "output/compiler/pdb/")
-    PATH_TO_DATASET = os.path.join(os.getcwd(), "output/dataset/")
+    PATH_TO_OUTPUT = os.path.join(ROOT_PATH, "output")
+    ROOT_PATH_LOCAL_CODE_REPOSITORIES = os.path.join(PATH_TO_OUTPUT, "localRepositories")
+    PATH_TO_COMPILER_EXE_OUTPUT = os.path.join(PATH_TO_OUTPUT, "compiler", "exe")
+    PATH_TO_COMPILER_OBJ_OUTPUT = os.path.join(PATH_TO_OUTPUT, "compiler", "obj")
+    PATH_TO_COMPILER_ASM_OUTPUT = os.path.join(PATH_TO_OUTPUT, "compiler", "asm")
+    PATH_TO_COMPILER_OBJDUMP_OUTPUT = os.path.join(PATH_TO_OUTPUT, "compiler", "objdump")
+    PATH_TO_DATASET = os.path.join(PATH_TO_OUTPUT, "dataset")

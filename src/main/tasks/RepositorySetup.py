@@ -1,4 +1,4 @@
-from main.tasks.Default import DefaultTask
+from utils.abstract.Default import DefaultTask
 from script.repository.RepositoryListClass import RepositoryList
 from utils.enum.PathsEnum import Paths
 from main.log.LogManagerClass import LogManager
