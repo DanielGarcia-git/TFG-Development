@@ -10,9 +10,9 @@ def main():
     logManager = LogManager()
     logManager.log("Empezando el programa...")
     cmdProcesor = CommandProcessor()
-    logManager.log("Procesando los argumentos: " + str(sys.argv[1:]))
+    logManager.logDebug("Procesando los argumentos: " + str(sys.argv[1:]))
     cmdProcesor.processArgumentList(sys.argv[1:])
-    logManager.log("Tareas definidas: " + str(cmdProcesor.getListOfTasks()))
+    logManager.logDebug("Tareas definidas: " + str(cmdProcesor.getListOfTasks()))
     cmdProcesor.executeTasks()
 
 if __name__ == '__main__':
