@@ -1,8 +1,9 @@
+import json
 import os
+
 from script.dataset.DataFineTuningClass import DataFineTuning
 from utils.enum.PathsEnum import Paths
 from main.log.LogManagerClass import LogManager
-import json
 
 class DataSet:
     """_summary_
@@ -61,7 +62,7 @@ class DataSet:
         if not os.path.exists(str(Paths.PATH_TO_DATASET.value)):
             os.makedirs(str(Paths.PATH_TO_DATASET.value))
         
-        with open(str(Paths.PATH_TO_DATASET.value) + "dataSet.json", 'w') as outfile:
+        with open(str(Paths.PATH_TO_DATASET.value) + os.sep + "dataSet.json", 'w') as outfile:
             outfile.write("[")
             for i, data in enumerate(self.__dataSet):
                 outfile.write(json.dumps(data.getDataFineTuningJSON()))
