@@ -1,6 +1,7 @@
 import os
 import shutil
-from main.tasks.Default import DefaultTask
+
+from utils.abstract.Default import DefaultTask
 from script.dataset.DataSetClass import DataSet
 from script.dataset.DataFineTuningClass import DataFineTuning
 from utils.enum.PathsEnum import Paths

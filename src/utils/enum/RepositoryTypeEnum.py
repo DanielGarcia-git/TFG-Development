@@ -6,4 +6,3 @@ class RepositoryType(Enum):
     """
 
     REPOSITORY_CODE_C = "code-c"
-    REPOSITORY_IA = "IA"

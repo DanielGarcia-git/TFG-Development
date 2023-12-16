@@ -1,6 +1,6 @@
 import shutil
 
-from main.tasks.Default import DefaultTask
+from utils.abstract.Default import DefaultTask
 from utils.enum.PathsEnum import Paths
 
 class CleanUpTask(DefaultTask):

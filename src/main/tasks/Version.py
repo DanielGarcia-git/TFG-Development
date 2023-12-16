@@ -1,4 +1,4 @@
-from main.tasks.Default import DefaultTask
+from utils.abstract.Default import DefaultTask
 from main.command.ConfigurationClass import Configuration
 
 class VersionTask(DefaultTask):

@@ -86,8 +86,6 @@ class Compiler:
             str: _description_
         """
 
-        
-
         if self.__compilerOptionLevel == CompilerOptionsLevel.NONE:
             raise Exception("No se ha definido el nivel de opciones de compilación")
 

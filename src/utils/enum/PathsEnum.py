@@ -11,12 +11,9 @@ class Paths(Enum):
     PATH_TO_COMPILER_OPTIONS = os.path.join(os.getcwd(), "data/compiler/compilerOptions.json")
     # Log directories
     PATH_TO_LOG_DIR = os.path.join(os.getcwd(), "log/")
-    PATH_TO_PIP_LOG_DIR = os.path.join(os.getcwd(), "log/pip/")
-    PATH_TO_LIT_GPT_LOG_DIR = os.path.join(os.getcwd(), "log/lit-gpt/")
     # Output directories
     PATH_TO_OUTPUT = os.path.join(os.getcwd(), "output/")
     ROOT_PATH_LOCAL_CODE_REPOSITORIES = os.path.join(os.getcwd(), "output/localRepositories/code/")
-    ROOT_PATH_LOCAL_IA_REPOSITORIES = os.path.join(os.getcwd(), "output/localRepositories/IA/")
     PATH_TO_COMPILER_EXE_OUTPUT = os.path.join(os.getcwd(), "output/compiler/exe/")
     PATH_TO_COMPILER_OBJ_OUTPUT = os.path.join(os.getcwd(), "output/compiler/obj/")
     PATH_TO_COMPILER_ASM_OUTPUT = os.path.join(os.getcwd(), "output/compiler/asm/")

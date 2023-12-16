@@ -23,8 +23,6 @@ class Repository:
         self.__urlRepo = url
         if type == str(RepositoryType.REPOSITORY_CODE_C.value):
             self.__pathToLocalRepository = str(Paths.ROOT_PATH_LOCAL_CODE_REPOSITORIES.value) + self.__nameRepo
-        elif type == str(RepositoryType.REPOSITORY_IA.value):
-            self.__pathToLocalRepository = str(Paths.ROOT_PATH_LOCAL_IA_REPOSITORIES.value) + self.__nameRepo
         
         if not shutil.os.path.exists(self.__pathToLocalRepository):
             self.__logManager.log("Clonando repositorio " + self.__nameRepo + " en " + self.__pathToLocalRepository)

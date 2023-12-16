@@ -1,7 +1,7 @@
 import os
 import shutil
 
-from main.tasks.Default import DefaultTask
+from utils.abstract.Default import DefaultTask
 from utils.file.CodeFileClass import CodeFile
 from script.compiler.CompilerClass import Compiler
 from utils.enum.CompilerOptionsLevelEnum import CompilerOptionsLevel
