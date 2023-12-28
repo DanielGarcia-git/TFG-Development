@@ -8,7 +8,7 @@ import merge_lora as merge
 
 
 def merge_lora(
-    model_name: str = "stabilityai/stablelm-base-alpha-7b",
+    model_name: str = "stabilityai/stablelm-base-alpha-3b",
 ):
     mege.merge_lora(
         checkpoint_dir = Path("llm-finetune/lit-gpt/checkpoints") / model_name,

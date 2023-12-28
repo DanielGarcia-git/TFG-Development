@@ -11,7 +11,7 @@ import prepare_csv
 # Extend with more dataset, own dataset
 
 def prepare_dataset(
-    model_name: str = "stabilityai/stablelm-base-alpha-7b",
+    model_name: str = "stabilityai/stablelm-base-alpha-3b",
     dataset: str = "",
     csv_path: str = ""
 ):

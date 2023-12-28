@@ -8,7 +8,7 @@ import generate
 import lora
 
 def finetune(
-    model_name: str = "stabilityai/stablelm-base-alpha-7b",
+    model_name: str = "stabilityai/stablelm-base-alpha-3b",
     dataset: str = "alpaca"
 ):
     lora.setup(

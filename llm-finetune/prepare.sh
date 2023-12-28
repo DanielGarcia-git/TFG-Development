@@ -1,4 +1,4 @@
-MODEL=stabilityai/stablelm-base-alpha-7b
+MODEL=stabilityai/stablelm-base-alpha-3b
 CHECKPOINT_PATH=$1
 
 if [ ! -d lit-gpt ]; then

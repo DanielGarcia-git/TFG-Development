@@ -8,7 +8,7 @@ import lora
 
 
 def generate(
-    model_name: str = "stabilityai/stablelm-base-alpha-7b",
+    model_name: str = "stabilityai/stablelm-base-alpha-3b",
     prompt: str = ""
 ):
     lora.main(
