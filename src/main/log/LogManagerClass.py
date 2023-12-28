@@ -3,6 +3,7 @@ import logging
 import os
 import shutil
 import colorlog
+
 from utils.enum.PathsEnum import Paths
 from main.command.ConfigurationClass import Configuration
 from utils.enum.ArgumentsEnum import Arguments
