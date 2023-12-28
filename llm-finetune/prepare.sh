@@ -1,22 +1,14 @@
-MODEL=codellama/CodeLlama-7b-hf
+MODEL=stabilityai/stablelm-base-alpha-7b
 CHECKPOINT_PATH=$1
 
 if [ ! -d lit-gpt ]; then
   git clone https://github.com/Lightning-AI/lit-gpt.git
 fi
 
-pip install -r requirements.txt
-pip install huggingface_hub tokenizers sentencepiece safetensors
-pip install scipy bitsandbytes
+$HOME/soft/bin/pip install -r requirements.txt
+$HOME/soft/bin/pip install huggingface_hub tokenizers sentencepiece safetensors
+$HOME/soft/bin/pip install scipy bitsandbytes
 
-# if MODEL is absolute path, then load that
-if [ $# -eq 1 ]; then
-  pushd lit-gpt
-  python ../collect.py --repo_id checkpoints/$MODEL --checkpoint_path $CHECKPOINT_PATH
-  python scripts/convert_hf_checkpoint.py --checkpoint_dir checkpoints/$MODEL
-  popd
-else
-  pushd lit-gpt
-  python scripts/download.py --repo_id $MODEL --access_token $ACCESS_TOKEN
-  python scripts/convert_hf_checkpoint.py --checkpoint_dir checkpoints/$MODEL
-fi
+pushd lit-gpt
+$HOME/soft/bin/python scripts/download.py --repo_id $MODEL
+$HOME/soft/bin/python scripts/convert_hf_checkpoint.py --checkpoint_dir checkpoints/$MODEL
