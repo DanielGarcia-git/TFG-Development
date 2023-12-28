@@ -11,7 +11,7 @@ import prepare_csv
 # Extend with more dataset, own dataset
 
 def prepare_dataset(
-    model_name: str = "meta-llama/Llama-2-7b-hf",
+    model_name: str = "codellama/CodeLlama-7b-hf",
     dataset: str = "",
     csv_path: str = ""
 ):

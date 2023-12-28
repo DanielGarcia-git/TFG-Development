@@ -8,7 +8,7 @@ import lora
 
 
 def generate(
-    model_name: str = "meta-llama/Llama-2-7b-hf",
+    model_name: str = "codellama/CodeLlama-7b-hf",
     prompt: str = ""
 ):
     lora.main(

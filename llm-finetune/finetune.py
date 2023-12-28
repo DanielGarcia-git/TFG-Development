@@ -8,14 +8,14 @@ import generate
 import lora
 
 def finetune(
-    model_name: str = "meta-llama/Llama-2-7b-hf",
+    model_name: str = "codellama/CodeLlama-7b-hf",
     dataset: str = "alpaca"
 ):
     lora.setup(
         checkpoint_dir = Path("llm-finetune/lit-gpt/checkpoints") / model_name,
         data_dir = Path("data") / dataset,
         out_dir = Path("out/lora") / dataset,
-        precision = "bf16-true",
+        precision = "16-true",
         quantize = "bnb.nf4-dq",
     )
 

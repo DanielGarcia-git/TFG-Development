@@ -1,4 +1,4 @@
-MODEL=meta-llama/Llama-2-7b-hf
+MODEL=codellama/CodeLlama-7b-hf
 CHECKPOINT_PATH=$1
 
 if [ ! -d lit-gpt ]; then
