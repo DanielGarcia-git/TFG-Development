@@ -1,6 +1,8 @@
 output/
 log/
 checkpoints/
+doc/_build/doctrees/
+doc/_build/html/
 
 *.exe
 *.obj
