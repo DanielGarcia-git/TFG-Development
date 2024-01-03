@@ -1,7 +1,10 @@
 from utils.enum.ArgumentsEnum import Arguments
 
 class Configuration:
-    """_summary_
+    """This class represents the actual configuration of the system. Stores things like
+       which arguments are activated.
+
+       This class follows the singleton pattern.
     """
 
     __instance = None
@@ -9,10 +12,11 @@ class Configuration:
     __version = "0.0.1"
 
     def __new__(self):
-        """_summary_
+        """If the Configuration instance doesn't exist, this function creates a new one,
+           otherwise, returns the actual instance
 
         Returns:
-            CommandProcessor: _description_
+            Configuration: The unique instance of the Configuration class
         """
 
         if not self.__instance:
@@ -21,7 +25,8 @@ class Configuration:
         return self.__instance
     
     def __defaultConfiguration(self) -> None:
-        """_summary_
+        """This function sets the default configuration in the system. Usually, this
+           function is used to initialize the configuration system.
         """
 
         self.__configurationArgs[Arguments.HELP] = True
@@ -33,13 +38,14 @@ class Configuration:
         self.__configurationArgs[Arguments.CLEAN_UP] = False
 
     def isArgAvailable(self, arg: str) -> Arguments:
-        """_summary_
+        """This function returns the state of one specific argument, in other words,
+           if this argument is activated  or not.
 
         Args:
-            arg (Arguments): _description_
+            arg (Arguments): The argument to be check
 
         Returns:
-            bool: _description_
+            bool: Returns True if the argument is activated, otherwise, returns False
         """
 
         for availableArg in self.__configurationArgs:
@@ -50,10 +56,10 @@ class Configuration:
 
 
     def enableArg(self, arg: Arguments) -> None:
-        """_summary_
+        """This function activates an argument.
 
         Args:
-            arg (Arguments): _description_
+            arg (Arguments): The argument to be activated
         """
         
         if arg != Arguments.HELP:
@@ -62,31 +68,31 @@ class Configuration:
         self.__configurationArgs[arg] = True
 
     def disableArg(self, arg: Arguments) -> None:
-        """_summary_
+        """This function deactivates an argument
 
         Args:
-            arg (Arguments): _description_
+            arg (Arguments): The argument to be deactivated
         """
 
         self.__configurationArgs[arg] = False
     
     def getArg(self, arg: Arguments) -> bool:
-        """_summary_
+        """This function returns the state of an argument
 
         Args:
-            arg (Arguments): _description_
+            arg (Arguments): The argument to get the state
 
         Returns:
-            bool: _description_
+            bool: Retunrs the state of the argument
         """
 
         return self.__configurationArgs[arg]
     
     def getVersion(self) -> str:
-        """_summary_
+        """This function returns the version of the system
 
         Returns:
-            str: _description_
+            str: A String representing the version of the system
         """
 
         return self.__version
