@@ -50,9 +50,18 @@ class DataSet:
         """
         
         return self.__dataSet
+
+    def getLength(self) -> int:
+        """Returns the length of the dataset.
+
+        Returns:
+            int: The length of the dataset.
+        """
+        
+        return len(self.__dataSet)
     
     def exportDataSet(self) -> None:
-        """_summary_
+        """
 
         Args:
             path (str): _description_

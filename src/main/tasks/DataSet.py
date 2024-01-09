@@ -51,6 +51,7 @@ class DataSetTask(DefaultTask):
                             dataFineTuning.setInput(str(asemblerFile))
                             self.__dataSet.addData(dataFineTuning)
                 self.__dataSet.exportDataSet()
+                self.logManager.log("Se ha creado el dataset con una longitud de " + str(len(self.__dataSet.getLength())) + " elementos")
             else:
                 self.logManager.logError("El directorio de repositorios está vacio o no existe")
                 exit(1)
