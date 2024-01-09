@@ -9,6 +9,11 @@
             "type": "code-c",
             "name": "C",
             "url": "https://github.com/TheAlgorithms/C.git"
+        },
+        {
+            "type": "code-c",
+            "name": "AnghaBench",
+            "url": "https://github.com/brenocfg/AnghaBench"
         }
     ]
 }
