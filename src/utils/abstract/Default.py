@@ -1,15 +1,23 @@
 from abc import ABC, abstractmethod
 from main.log.LogManagerClass import LogManager
 
+from abc import ABC, abstractmethod
+
 class DefaultTask(ABC):
-    """_summary_
+    """Base class for defining default tasks.
+
+    This class provides a template for defining tasks by subclassing it.
+    Subclasses must implement the `defineTask` method.
+
+    Args:
+        arg_command (str, optional): The command argument for the task. Defaults to "".
     """
 
     def __init__(self, arg_command: str = ""):
-        """_summary_
+        """Initialize the DefaultTask instance.
 
         Args:
-            arg_command (str, optional): _description_. Defaults to "".
+            arg_command (str, optional): The command argument for the task. Defaults to "".
         """
 
         super().__init__()
@@ -17,7 +25,9 @@ class DefaultTask(ABC):
         self.arg_command = arg_command
 
     def run(self) -> None:
-        """_summary_
+        """Run the task.
+
+        This method logs the execution of the task and calls the `defineTask` method.
         """
 
         self.logManager.log("Ejecutando tarea: " + self.__class__.__name__)
@@ -25,7 +35,9 @@ class DefaultTask(ABC):
 
     @abstractmethod
     def defineTask(self) -> None:
-        """_summary_
+        """Define the task.
+
+        This method must be implemented by subclasses to define the specific task logic.
         """
 
         pass

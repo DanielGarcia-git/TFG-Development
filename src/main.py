@@ -5,8 +5,11 @@ import sys
 
 
 def main():
-    """_summary_
+    """This is the main function that serves as the entry point of the program.
+    
+    It initializes the LogManager, processes the command line arguments, and executes the tasks.
     """
+    
     logManager = LogManager()
     logManager.log("Empezando el programa...")
     cmdProcesor = CommandProcessor()

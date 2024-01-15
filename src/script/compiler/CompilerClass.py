@@ -14,16 +14,44 @@ from utils.file.FileClass import File
 from utils.file.ObjdumpFileClass import ObjdumpFile
 
 class Compiler:
-    """_summary_
+    """A singleton class representing a compiler.
+
+    This class provides functionality to compile code files using different compiler options
+    based on the operating system. It also generates objdump files for the compiled executables.
+
+    Attributes:
+        __instance (Compiler): The singleton instance of the Compiler class.
+        __logManager (LogManager): The log manager instance.
+        __compilerOptions (list[CompilerOptions]): The list of available compiler options.
+        __compilerOptionLevel (CompilerOptionsLevel): The current level of compiler options.
+        __actualCompilerOption (CompilerOptions): The actual compiler option based on the level.
+        __codeFiles (list[CodeFile]): The list of code files to be compiled.
+        __operatingSystem (OperatingSystem): The operating system on which the compiler is running.
+        __compilerExec (Compilers): The compiler executable.
+
+    Methods:
+        __new__(self): Creates a new instance of the Compiler class.
+        __setPathToCompiler(self): Sets the path to the compiler executable based on the operating system.
+        __setCompilerOptions(self): Sets the compiler options based on the operating system.
+        __setOperatingSystem(self): Sets the operating system based on the platform.
+        __createCommand(self, codeFile): Creates the compilation command for a code file.
+        __compile(self, fileToCompile): Compiles a code file using the specified compiler options.
+        getOperatingSystem(self): Returns the operating system.
+        getCompilerOptionsLevel(self): Returns the current level of compiler options.
+        getCompilerOptions(self): Returns the available compiler options.
+        setCodeFiles(self, codeFiles): Sets the code files to be compiled.
+        setJSONToCompilerOptions(self, pathToJSON): Sets the compiler options from a JSON file.
+        setLevelCompilerOptions(self, compilerLevel): Sets the level of compiler options.
+        compilerExec(self): Executes the compilation process.
     """
 
     __instance = None
 
     def __new__(self):
-        """_summary_
+        """Creates a new instance of the Compiler class.
 
         Returns:
-            CommandProcessor: _description_
+            Compiler: The newly created instance of the Compiler class.
         """
 
         if not self.__instance:
@@ -39,7 +67,12 @@ class Compiler:
         return self.__instance
 
     def __setPathToCompiler(self) -> None:
-        """_summary_
+        """Set the path to the compiler based on the operating system.
+
+        This method determines the appropriate compiler executable based on the operating system.
+        If the operating system is Windows, the Visual Studio compiler is used.
+        If the operating system is Linux, the GCC compiler is used.
+        If the operating system is neither Windows nor Linux, no compiler is set.
         """
 
         if self.__operatingSystem == OperatingSystem.WINDOWS:
@@ -50,7 +83,10 @@ class Compiler:
             self.__compilerExec = Compilers.NONE
     
     def __setCompilerOptions(self) -> None:
-        """_summary_
+        """Set the compiler options based on the operating system.
+
+        Reads the compiler options from a JSON file and populates the __compilerOptions list
+        based on the current operating system.
         """
 
         jsonFile = open(str(Paths.PATH_TO_COMPILER_OPTIONS.value), "r")
@@ -66,7 +102,10 @@ class Compiler:
             self.__compilerOptions.append(CompilerOptions(compilerOption["id"], options))
     
     def __setOperatingSystem(self) -> None:
-        """_summary_
+        """Set the operating system based on the current platform.
+
+        This method determines the operating system and sets the appropriate value
+        for the `__operatingSystem` attribute.
         """
 
         if platform.system() == "Windows":
@@ -77,13 +116,13 @@ class Compiler:
             self.__operatingSystem = OperatingSystem.NONE
     
     def __createCommand(self, codeFile: CodeFile) -> list[str]:
-        """_summary_
+        """Create the command for compiling the code file.
 
         Args:
-            codeFile (CodeFile): _description_
+            codeFile (CodeFile): The code file to be compiled.
 
         Returns:
-            str: _description_
+            list[str]: The command for compiling the code file.
         """
 
         if self.__compilerOptionLevel == CompilerOptionsLevel.NONE:
@@ -100,10 +139,13 @@ class Compiler:
             return None
 
     def __compile(self, fileToCompile: CodeFile) -> bool:
-        """_summary_
+        """Compiles the given code file.
 
         Args:
-            fileToCompile (CodeFile): _description_
+            fileToCompile (CodeFile): The code file to compile.
+
+        Returns:
+            bool: True if the compilation is successful, False otherwise.
         """
         
         compile_command = self.__createCommand(fileToCompile)
@@ -119,46 +161,47 @@ class Compiler:
             return True
     
     def getOperatingSystem(self) -> OperatingSystem:
-        """_summary_
+        """Returns the operating system associated with the compiler.
 
         Returns:
-            OperatingSystem: _description_
+            OperatingSystem: The operating system associated with the compiler.
         """
 
         return self.__operatingSystem
     
     def getCompilerOptionsLevel(self) -> CompilerOptionsLevel:
-        """_summary_
+        """Returns the compiler options level.
 
         Returns:
-            CompilerOptionsLevel: _description_
+            CompilerOptionsLevel: The compiler options level.
         """
 
         return self.__compilerOptionLevel
     
     def getCompilerOptions(self) -> CompilerOptions:
-        """_summary_
+        """Get the compiler options.
 
         Returns:
-            CompilerOptions: _description_
+            CompilerOptions: The compiler options.
         """
 
         return self.__compilerOptions
     
     def setCodeFiles(self, codeFiles: list[CodeFile]) -> None:
-        """_summary_
+        """
+        Set the code files for the compiler.
 
         Args:
-            codeFiles (list[CodeFile]): _description_
+            codeFiles (list[CodeFile]): A list of CodeFile objects representing the code files to be set.
         """
 
         self.__codeFiles = codeFiles
 
     def setJSONToCompilerOptions(self, pathToJSON: str) -> None:
-        """_summary_
+        """Set the compiler options from a JSON file.
 
         Args:
-            pathToJSON (str): _description_
+            pathToJSON (str): The path to the JSON file containing the compiler options.
         """
 
         jsonFile = open(pathToJSON, "r")
@@ -174,12 +217,12 @@ class Compiler:
             self.__compilerOptions.append(CompilerOptions(compilerOption["id"], options))
     
     def setLevelCompilerOptions(self, compilerLevel: CompilerOptionsLevel) -> None:
-        """_summary_
+        """Set the level of compiler options.
 
         Args:
-            compilerLevel (CompilerOptionsLevel): _description_
+            compilerLevel (CompilerOptionsLevel): The level of compiler options to set.
         """
-
+        
         self.__compilerOptionLevel = compilerLevel
         for option in self.__compilerOptions:
             if option.getId() == compilerLevel.value:
@@ -188,7 +231,10 @@ class Compiler:
                 break
     
     def compilerExec(self) -> None:
-        """_summary_
+        """Executes the compilation process.
+
+        This method checks the compiler options, code files, and compiler executable.
+        It then compiles each code file and generates objdump files for the compiled executables.
         """
 
         if self.__compilerOptions == None:
@@ -241,5 +287,4 @@ class Compiler:
             for file in files:
                 objdumpFile = ObjdumpFile(os.path.join(root, file))
                 objdumpFile.clean()
-
-        
+    

@@ -1,8 +1,7 @@
 from enum import Enum, auto
 
 class OperatingSystem(Enum):
-    """_summary_
-    """
+    """Represents the operating system types."""
 
     WINDOWS = auto()
     LINUX = auto()
