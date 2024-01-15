@@ -11,17 +11,21 @@ from main.tasks.Version import VersionTask
 from utils.enum.ArgumentsEnum import Arguments
 
 class CommandProcessor:
-    """_summary_
+    """This class is used to process all the commands and arguments that are given
+       by the user. Depending of the arguments we will execute one task or another.
+
+       This class follows the singleton pattern.
     """
 
     __instance = None
     __tasksArray = []
 
     def __new__(self):
-        """_summary_
+        """If the CommandProcessor instance doesn't exits, this function creates a new one,
+           otherwise, returns the actual instance
 
         Returns:
-            CommandProcessor: _description_
+            CommandProcessor: The unique instance of the CommandProcessor class
         """
 
         if not self.__instance:
@@ -30,10 +34,11 @@ class CommandProcessor:
         return self.__instance
 
     def processArgumentList(self, argumentList: list[str]) -> None:
-        """_summary_
+        """This function processes all the arguments given by the user. If it's a 
+        valid argument, create the task associated with the argument.
 
         Args:
-            argumentList (list[str]): _description_
+            argumentList (list[str]): The list of arguments
         """
         
         config = Configuration()
@@ -68,11 +73,11 @@ class CommandProcessor:
             self.__addTask(arg, "")
     
     def __addTask(self, arg: Arguments, arg_command: str) -> None:
-        """_summary_
+        """This function add a new task to the list of task that have to be executed
 
         Args:
-            arg (Arguments): _description_
-            arg_command (str): _description_
+            arg (Arguments): The argument associate to the task
+            arg_command (str): The options needed by the task, optional
         """
 
         if arg == Arguments.HELP:
@@ -93,10 +98,10 @@ class CommandProcessor:
             self.__tasksArray.append(CleanUpTask())
         
     def getListOfTasks(self) -> list:
-        """_summary_
+        """Returns the list of tasks that will be executed
 
         Returns:
-            list: _description_
+            list: The list of tasks that will be executed
         """
 
         listOfTasks = []
@@ -107,7 +112,8 @@ class CommandProcessor:
         return listOfTasks
     
     def executeTasks(self) -> None:
-        """_summary_
+        """This function executes all the tasks that are in the 
+        list of tasks that will be executed
         """
         
         for task in self.__tasksArray:

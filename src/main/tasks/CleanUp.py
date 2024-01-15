@@ -4,10 +4,11 @@ from utils.abstract.Default import DefaultTask
 from utils.enum.PathsEnum import Paths
 
 class CleanUpTask(DefaultTask):
+    """This class implements the task that cleans all the temporary files
+    """
 
-    # Crea una funcion para eliminar la carpeta output
     def clean(self) -> None:
-        """_summary_
+        """This function cleans all the temporary files
         """
 
         self.logManager.log(f"Eliminando carpeta output: {str(Paths.PATH_TO_OUTPUT.value)}")
@@ -18,7 +19,8 @@ class CleanUpTask(DefaultTask):
             self.logManager.logError(f"Error: {str(e)} - {str(Paths.PATH_TO_OUTPUT.value)}")
 
     def defineTask(self) -> None:
-        """_summary_
+        """This function defines the behaivor of the task, in this case
+           cleans all the temporary files
         """
 
         self.clean()

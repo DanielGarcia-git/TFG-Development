@@ -8,14 +8,24 @@ from utils.enum.CompilerOptionsLevelEnum import CompilerOptionsLevel
 from utils.enum.PathsEnum import Paths
 
 class CompilerTask(DefaultTask):
-    """_summary_
+    """Represents a task for compiling code files.
+
+    This class inherits from the DefaultTask class and provides methods for generating directories,
+    defining the task, and executing the compiler.
+
+    Attributes:
+        __compiler (Compiler): The compiler object used for compilation.
+        __codeFiles (list): A list of CodeFile objects representing the code files to be compiled.
+
+    Args:
+        arg_command (str, optional): The command to be passed to the compiler. Defaults to "".
     """
 
     def __init__(self, arg_command: str = ""):
-        """_summary_
+        """Initializes a new instance of the CompilerTask class.
 
         Args:
-            arg_command (str, optional): _description_. Defaults to "".
+            arg_command (str, optional): The command to be passed to the compiler. Defaults to "".
         """
 
         super().__init__(arg_command)
@@ -24,9 +34,11 @@ class CompilerTask(DefaultTask):
         self.__codeFiles = []
 
     def getCodeFiles(self) -> None:
-        """_summary_
+        """Gets the code files to be compiled.
+
+        This method searches for code files in the local code repositories directory and adds them to the __codeFiles list.
         """
-        
+
         self.__codeFiles = []
         if shutil.os.path.exists(Paths.ROOT_PATH_LOCAL_CODE_REPOSITORIES.value) and os.listdir(Paths.ROOT_PATH_LOCAL_CODE_REPOSITORIES.value):
             for root, dirs, files in os.walk(str(Paths.ROOT_PATH_LOCAL_CODE_REPOSITORIES.value)):
@@ -38,7 +50,10 @@ class CompilerTask(DefaultTask):
             exit(1)
     
     def generateDirectory(self) -> None:
-        """_summary_
+        """Generates the required directories for compilation.
+
+        This method creates the directories for the assembly output, object output, executable output, and objdump output
+        if they do not already exist.
         """
 
         if not shutil.os.path.exists(Paths.PATH_TO_COMPILER_ASM_OUTPUT.value):
@@ -51,7 +66,10 @@ class CompilerTask(DefaultTask):
             os.makedirs(Paths.PATH_TO_COMPILER_OBJDUMP_OUTPUT.value)
 
     def defineTask(self) -> None:
-        """_summary_
+        """Defines the compilation task.
+
+        This method calls the getCodeFiles() and generateDirectory() methods, sets the code files and compiler options,
+        and executes the compiler.
         """
 
         self.getCodeFiles()

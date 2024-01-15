@@ -1,18 +1,5 @@
-main package
-============
-
-Subpackages
------------
-
-.. toctree::
-   :maxdepth: 4
-
-   main.command
-   main.log
-   main.tasks
-
-Module contents
----------------
+main module
+===========
 
 .. automodule:: main
    :members:

@@ -7,16 +7,22 @@ from utils.enum.RepositoryTypeEnum import RepositoryType
 from main.log.LogManagerClass import LogManager
 
 class Repository:
-    """_summary_
+    """A class representing a repository.
+
+    Attributes:
+        __nameRepo (str): The name of the repository.
+        __urlRepo (str): The URL of the repository.
+        __pathToLocalRepository (str): The local path to the repository.
+        __repo (Repo): The Git repository object.
     """
 
     def __init__(self, name: str, url: str, type: str) -> None:
-        """_summary_
+        """Initialize a Repository object.
 
         Args:
-            name (str): _description_
-            url (str): _description_
-            type (str): _description_
+            name (str): The name of the repository.
+            url (str): The URL of the repository.
+            type (str): The type of the repository.
         """
 
         self.__logManager = LogManager()
@@ -33,10 +39,10 @@ class Repository:
             self.__repo = Repo(self.__pathToLocalRepository)
     
     def __str__(self) -> str:
-        """_summary_
+        """Return the name of the repository.
 
         Returns:
-            str: _description_
+            str: The name of the repository.
         """
 
         return self.__nameRepo

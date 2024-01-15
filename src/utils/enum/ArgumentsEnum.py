@@ -1,7 +1,18 @@
 from enum import Enum
 
 class Arguments(Enum):
-    """_summary_
+    """An enumeration class representing command line arguments.
+
+    Each argument is defined with a short and long option, a description, and whether it requires an argument or not.
+
+    Attributes:
+        REPOSITORY_SETUP (tuple): A tuple representing the repository setup argument.
+        COMPILER_SETUP (tuple): A tuple representing the compiler setup argument.
+        DATASET_SETUP (tuple): A tuple representing the dataset setup argument.
+        CLEAN_UP (tuple): A tuple representing the clean up argument.
+        DEBUG (tuple): A tuple representing the debug argument.
+        VERSION (tuple): A tuple representing the version argument.
+        HELP (tuple): A tuple representing the help argument.
     """
 
     REPOSITORY_SETUP = ("-r", "--repository-setup", "Descarga los repositorios especificados en el fichero de repositorios.txt", False)
@@ -13,13 +24,13 @@ class Arguments(Enum):
     HELP = ("-h", "--help", "Muestra este mensaje de ayuda", False)
 
     def __init__(self, arg_short: str, arg_large: str, description: str, has_arg: bool) -> None:
-        """_summary_
+        """Initialize the Arguments enum.
 
         Args:
-            arg_short (str): _description_
-            arg_large (str): _description_
-            description (str): _description_
-            has_arg (bool): _description_
+            arg_short (str): The short option of the argument.
+            arg_large (str): The long option of the argument.
+            description (str): The description of the argument.
+            has_arg (bool): Whether the argument requires an argument or not.
         """
 
         self.__arg_short = arg_short
@@ -28,10 +39,10 @@ class Arguments(Enum):
         self.__description = description
 
     def __str__(self) -> str:
-        """_summary_
+        """Return a string representation of the argument.
 
         Returns:
-            str: _description_
+            str: The string representation of the argument.
         """
 
         options = ""
@@ -40,28 +51,28 @@ class Arguments(Enum):
         return f"{self.__arg_short}/{self.__arg_large}{options} - {self.__description}"
     
     def getArgShort(self) -> str:
-        """_summary_
+        """Get the short option of the argument.
 
         Returns:
-            str: _description_
+            str: The short option of the argument.
         """
     
         return self.__arg_short
     
     def getArgLarge(self) -> str:
-        """_summary_
+        """Get the long option of the argument.
 
         Returns:
-            str: _description_
+            str: The long option of the argument.
         """
     
         return self.__arg_large
     
     def getHasArg(self) -> bool:
-        """_summary_
+        """Check if the argument requires an argument.
 
         Returns:
-            bool: _description_
+            bool: True if the argument requires an argument, False otherwise.
         """
 
         return self.__has_arg

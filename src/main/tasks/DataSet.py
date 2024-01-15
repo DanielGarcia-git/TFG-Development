@@ -8,9 +8,22 @@ from utils.enum.PathsEnum import Paths
 from utils.file.CodeFileClass import CodeFile
 
 class DataSetTask(DefaultTask):
+    """Represents a task for creating a dataset.
+
+    This task collects data from assembler files and corresponding code files
+    to build a dataset for further processing.
+
+    Args:
+        DefaultTask (type): The base class for tasks.
+
+    Attributes:
+        __dataSet (DataSet): The dataset object.
+        __asemblerFiles (list[CodeFile]): The list of assembler files.
+        __codeFiles (list[CodeFile]): The list of code files.
+    """
 
     def __init__(self):
-        """_summary_
+        """Initializes a new instance of the DataSetTask class.
         """
 
         super().__init__()
@@ -19,7 +32,14 @@ class DataSetTask(DefaultTask):
         self.__codeFiles = list[CodeFile]
     
     def getFileByPathAndType(self, path: str, type: str) -> None:
-        """_summary_
+        """Returns a list of code files found in the specified path with the given file type.
+
+        Args:
+            path (str): The path to search for code files.
+            type (str): The file type to filter the code files.
+
+        Returns:
+            list[CodeFile]: The list of code files found.
         """
 
         codeFiles = []
@@ -33,9 +53,9 @@ class DataSetTask(DefaultTask):
         return codeFiles
 
     def defineTask(self) -> None:
-        """_summary_
+        """Defines the task to build the dataset.
         """
-
+        
         self.__asemblerFiles = self.getFileByPathAndType(Paths.PATH_TO_COMPILER_OBJDUMP_OUTPUT.value, ".txt")
         self.__codeFiles = self.getFileByPathAndType(Paths.ROOT_PATH_LOCAL_CODE_REPOSITORIES.value, ".c")
 
@@ -57,5 +77,3 @@ class DataSetTask(DefaultTask):
         else:
             self.logManager.logError("El directorio de codigo en ensamblado está vacio o no existe")
             exit(1)
-        
-

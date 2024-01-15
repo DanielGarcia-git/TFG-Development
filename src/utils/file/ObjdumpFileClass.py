@@ -2,12 +2,19 @@ from utils.file.FileClass import File
 import re
 
 class ObjdumpFile(File):
-    """_summary_
+    """Represents an objdump file.
+
+    This class provides methods to clean the objdump file and retrieve its content.
+
+    Attributes:
+        pathToFile (str): The path to the objdump file.
     """
 
-
     def __clean_objdump(self, file_path):
-        """_summary_
+        """Cleans the objdump file by removing unnecessary lines.
+
+        Args:
+            file_path (str): The path to the objdump file.
         """
 
         with open(file_path, 'r') as file:
@@ -19,7 +26,7 @@ class ObjdumpFile(File):
             if "Disassembly of section" in line:
                 inside_function = False
 
-            # Revisar si la línea marca el inicio de una función
+            # Check if the line marks the start of a function
             if re.match(r"\d{16} \<.*\>:", line):
                 inside_function = True
 
@@ -30,16 +37,15 @@ class ObjdumpFile(File):
             file.writelines(cleaned_lines)
     
     def clean(self):
-        """_summary_
-        """
+        """Cleans the objdump file."""
 
         self.__clean_objdump(self.pathToFile)
     
     def __str__(self) -> str:
-        """_summary_
+        """Returns the content of the objdump file as a string.
 
         Returns:
-            str: _description_
+            str: The content of the objdump file.
         """
 
         with open(self.pathToFile, 'r', encoding=self.getEncoding()) as file:

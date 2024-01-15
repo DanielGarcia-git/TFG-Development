@@ -3,58 +3,65 @@ from pathlib import Path
 import chardet
 
 class File:
-    """_summary_
+    """A class representing a file.
+
+    Attributes:
+        file (TextIOWrapper): The file object.
+        pathToFile (str): The path to the file.
     """
 
     def __init__(self, path: str = "") -> None:
-        """_summary_
+        """Initialize a File object.
+
+        Args:
+            path (str, optional): The path to the file. Defaults to "".
         """
 
         self.file = TextIOWrapper
         self.pathToFile = path
     
     def setPathToFile(self, newPath: str) -> None:
-        """_summary_
+        """Set the path to the file.
 
         Args:
-            newPath (str): _description_
+            newPath (str): The new path to the file.
         """
 
         self.pathToFile = newPath
     
     def getPathToFile(self) -> str:
-        """_summary_
+        """Get the path to the file.
 
         Returns:
-            str: _description_
+            str: The path to the file.
         """
 
         return self.pathToFile
 
     def getFileName(self) -> str:
-        """_summary_
+        """Get the name of the file.
 
         Returns:
-            str: _description_
+            str: The name of the file.
         """
 
         return Path(self.pathToFile).stem
     
     def getData(self) -> list[str]:
-        """_summary_
+        """Get the data from the file.
 
         Returns:
-            list[str]: _description_
+            list[str]: The data from the file as a list of strings.
         """
 
         self.file = open(self.pathToFile, encoding=None)
         return self.file.readlines()
     
     def getEncoding(self) -> str:
-        """_summary_
+        """Get the encoding of the file.
 
         Returns:
-            str: _description_
+            str: The encoding of the file.
         """
 
         with open(self.pathToFile, 'rb') as file:

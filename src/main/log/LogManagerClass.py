@@ -8,16 +8,29 @@ from main.command.ConfigurationClass import Configuration
 from utils.enum.ArgumentsEnum import Arguments
 
 class LogManager:
-    """_summary_
+    """
+    The LogManager class provides a centralized logging functionality for the application.
+
+    Attributes:
+        __instance (LogManager): The singleton instance of the LogManager class.
+
+    Methods:
+        __new__(self): Creates a new instance of the LogManager class.
+        __createLogDir(self) -> None: Creates the log directory if it doesn't exist.
+        log(self, message: str) -> None: Logs an informational message.
+        logError(self, message: str) -> None: Logs an error message.
+        logWarning(self, message: str) -> None: Logs a warning message.
+        logDebug(self, message: str) -> None: Logs a debug message.
     """
 
     __instance = None
 
     def __new__(self):
-        """_summary_
+        """
+        Creates a new instance of the LogManager class.
 
         Returns:
-            CommandProcessor: _description_
+            LogManager: The LogManager instance.
         """
 
         if not self.__instance:
@@ -52,44 +65,49 @@ class LogManager:
         return self.__instance
     
     def __createLogDir(self) -> None:
-        """_summary_
+        """
+        Creates the log directory if it doesn't exist.
         """
 
         if not shutil.os.path.exists(str(Paths.PATH_TO_LOG_DIR.value)):
             os.makedirs(str(Paths.PATH_TO_LOG_DIR.value))
 
     def log(self, message: str) -> None:
-        """_summary_
+        """
+        Logs an informational message.
 
         Args:
-            message (str): _description_
+            message (str): The message to be logged.
         """
 
         self.logger.info(message)
     
     def logError(self, message: str) -> None:
-        """_summary_
+        """
+        Logs an error message.
 
         Args:
-            message (str): _description_
+            message (str): The error message to be logged.
         """
 
         self.logger.error(message)
     
     def logWarning(self, message: str) -> None:
-        """_summary_
+        """
+        Logs a warning message.
 
         Args:
-            message (str): _description_
+            message (str): The warning message to be logged.
         """
 
         self.logger.warning(message)
 
     def logDebug(self, message: str) -> None:
-        """_summary_
+        """
+        Logs a debug message.
 
         Args:
-            message (str): _description_
+            message (str): The debug message to be logged.
         """
 
         if self.__config.getArg(Arguments.DEBUG):
